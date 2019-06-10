@@ -615,28 +615,29 @@
     //   })
     // }
 
-    // window.onunload = function(){
-    //     // var n = window.event.screenX - window.screenLeft;
-    //     // var b = n > document.documentElement.scrollWidth -20;
-    //     //if(b && window.event.clientY < 0 || window.event.altKey){
-    //     $.ajax({
-    //         type:"post",
-    //         url: '/stop?id='+id ,
-    //         success: function(){
-    //
-    //         },
-    //     });
-    // };
-
-    $(window).on('unload',function(){
+    window.onunload = function(){
+        // var n = window.event.screenX - window.screenLeft;
+        // var b = n > document.documentElement.scrollWidth -20;
+        //if(b && window.event.clientY < 0 || window.event.altKey){
         $.ajax({
-            type: 'post',
-            url: '/stop?id='+id,
+            type:"post",
+            url: '/stop?id='+id ,
             success: function(){
 
             },
         });
-    })
+    };
+
+    // $(window).on('unload',function(){
+    //     $.ajax({
+    //         type: 'post',
+    //         url: '/stop?id='+id,
+    //         success: function(){
+    //
+    //         },
+    //     });
+    // })
+
 
 </script>
 
