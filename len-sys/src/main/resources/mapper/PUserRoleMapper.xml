@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.PUserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.PUserRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="p_user" jdbcType="VARCHAR" property="pUser" />
+    <id column="p_role" jdbcType="VARCHAR" property="pRole" />
+  </resultMap>
+
+  <insert id="insertUserRole" parameterType="com.len.entity.PUserRole">
+    insert into p_user_role (p_user, p_role) VALUES (#{pUser},#{pRole})
+  </insert>
+</mapper>

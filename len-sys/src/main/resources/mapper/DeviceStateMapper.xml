@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指用户自定义的命名空间。 -->
+<mapper namespace="com.len.mapper.DeviceStateMapper">
+    <!-- 根据表名来创建表 -->
+    <update id="createNewTable" parameterType="String" >
+	   		  CREATE TABLE ${tablename} (
+			  ID int(11) NOT NULL AUTO_INCREMENT,
+			  EID varchar(255)  COMMENT '设备编号',
+			  IP varchar(255) DEFAULT NULL COMMENT 'IP地址',
+			  T1 varchar(255)  DEFAULT NULL COMMENT '喷头T1温度',
+			  T2 varchar(255)  DEFAULT NULL COMMENT '喷头T2温度',
+			  T3 varchar(255)  DEFAULT NULL COMMENT '热床温度',
+			  X  varchar(255)  DEFAULT NULL COMMENT '打印喷头的X坐标',
+			  Y  varchar(255)  DEFAULT NULL COMMENT '打印喷头的Y坐标',
+			  Z  varchar(255)  DEFAULT NULL COMMENT '打印喷头的Z坐标',
+			  E  varchar(255)  DEFAULT NULL COMMENT '挤料数据',
+			  T  varchar(255) DEFAULT NULL COMMENT '打印进度',
+			  CREATETIME timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '信息存储的时间',
+			  PRIMARY KEY (ID)
+			) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=gbk;
+	   </update>
+
+    <resultMap id="BaseResultMap" type="com.len.entity.Device_state">
+        <id property="id" column="ID"/>
+        <result property="eid" column="EID"/>
+        <result property="ip"  column="IP"/>
+        <result property="t1"  column="T1"/>
+        <result property="t2"  column="T2"/>
+        <result property="t3"  column="T3"/>
+        <result property="x"  column="X"/>
+        <result property="y"  column="Y"/>
+        <result property="z"  column="Z"/>
+        <result property="e"  column="E"/>
+        <result property="t"  column="T"/>
+        <result property="createTime" column="createtime"/>
+    </resultMap>
+
+    <!-- 根据eid来获取状态信息 -->
+    <select id="selectDeviceStateByEId" parameterType="java.lang.String" resultMap="BaseResultMap">
+	  		select * FROM ${tablename} where EID = #{eid}
+	  </select>
+
+    <!-- 向任意表中插入数据 -->
+    <insert id="saveDeviceState"  parameterType="com.len.entity.Device_state">
+		  	INSERT INTO ${tablename}(EID,IP,T1,T2,T3,X,Y,Z,E,T)
+		  	VALUES(#{device_state.eid},#{device_state.ip},#{device_state.t1},#{device_state.t2},#{device_state.t3},#{device_state.x},#{device_state.y},#{device_state.z},#{device_state.e},#{device_state.t})
+	</insert>
+
+    <!-- 根据eid 即表名来查找表是否存在 -->
+    <select id="isTableExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+	  	select count(*) from information_schema.TABLES where table_name = #{tablename}
+	  </select>
+
+    <!-- 在任意表中根据时间来查找 -->
+    <select id="selectDeviceStateByTimePart" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * FROM ${tablename}
+        <where>
+            <if test='startTime!=null or endTime!=null '>
+                createTime between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+<!--    <select id="selectListByPage" parameterType="com.len.entity.PDevice" resultMap="BaseResultMap">
+    select * from p_device where connect like '已连接'
+  </select>-->
+
+</mapper>

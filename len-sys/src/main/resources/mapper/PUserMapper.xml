@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.PUserMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.PUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+  </resultMap>
+
+<select id="checkpUser" parameterType="java.lang.String" resultType="java.lang.Integer">
+  select count(1) from p_user where uname = #{username}
+</select>
+
+  <insert id="insertpUser" parameterType="com.len.entity.PUser" >
+    insert into p_user (uname, pwd, contact, tel, mail)
+    VALUES (#{uname},#{pwd},#{contact},#{tel},#{mail})
+  </insert>
+
+  <select id="getuserid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id from p_user where uname = #{uname}
+  </select>
+
+</mapper>

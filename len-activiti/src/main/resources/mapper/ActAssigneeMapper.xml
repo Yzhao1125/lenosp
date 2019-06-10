@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.len.mapper.ActAssigneeMapper">
+  <resultMap id="BaseResultMap" type="com.len.entity.ActAssignee">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="sid" jdbcType="VARCHAR" property="sid" />
+    <result column="assignee" jdbcType="VARCHAR" property="assignee" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="assignee_type" jdbcType="INTEGER" property="assigneeType" />
+    <result column="activti_name" jdbcType="VARCHAR" property="activtiName" />
+  </resultMap>
+
+  <delete id="deleteByNodeId" parameterType="java.lang.String">
+    delete from act_assignee
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="selectListByPage" parameterType="com.len.entity.ActAssignee" resultMap="BaseResultMap">
+    SELECT *
+    from act_assignee
+    <!--<where>
+      <if test="userId!=null and userId!=''">and user_id=#{userId}</if>
+      <if test="beginTime!=null">
+        <![CDATA[   and DATE_FORMAT(begin_time, '%Y-%m-%d')>=  DATE_FORMAT(#{beginTime}, '%Y-%m-%d')   ]]>
+      </if>
+      <if test="endTime!=null">
+        <![CDATA[  and DATE_FORMAT(end_time, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')    ]]>
+      </if>
+    </where>-->
+  </select>
+</mapper>
