@@ -6,6 +6,7 @@ import com.len.entity.SysRole;
 import com.len.entity.SysRoleUser;
 import com.len.entity.SysUser;
 import com.len.exception.MyException;
+import com.len.mapper.SysRoleMenuMapper;
 import com.len.mapper.SysRoleUserMapper;
 import com.len.mapper.SysUserMapper;
 import com.len.service.RoleService;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -67,6 +70,32 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
     String pwd= Md5Util.getMD5(user.getPassword().trim(),user.getUsername().trim());
     user.setPassword(pwd);
 
+  }
+
+  @Value("${initRole}")
+  private String initRole;
+
+  @Autowired
+  RoleUserService userService;
+
+  @Override
+  public boolean register(SysUser user) {
+      insertSelective(user);
+    //register
+    if(!StringUtils.isEmpty(initRole)){
+      SysRole role=new SysRole();
+      role.setRoleName(initRole);
+      List<SysRole> sysRoles = roleService.select(role);
+      if(!sysRoles.isEmpty()){
+        SysRole sysRole = sysRoles.get(0);
+        String roleId = sysRole.getId();
+        SysRoleUser roleUser=new SysRoleUser();
+        roleUser.setUserId(user.getId());
+        roleUser.setRoleId(roleId);
+        userService.insert(roleUser);
+      }
+    }
+    return true;
   }
 
   @Override
@@ -186,4 +215,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser,String> implemen
   public int rePass(SysUser user) {
     return sysUserMapper.rePass(user);
   }
+
+
+
 }

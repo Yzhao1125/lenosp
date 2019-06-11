@@ -22,16 +22,16 @@
 <div class="login">
     <div class="message">用户注册</div>
     <div id="darkbannerwrap"></div>
-    <form class="layui-form" >
-        <input name="username" placeholder="用户名" autocomplete="off"  type="text" lay-verify="username" class="layui-input" >
+    <form class="layui-form" method="post" action="/register" >
+        <input value="${user.username}"   name="username" placeholder="用户名" autocomplete="off"  type="text" lay-verify="username" class="layui-input" >
         <br>
-        <input name="password" lay-verify="password" placeholder="密码" autocomplete="off"  type="password" class="layui-input">
+        <input id="password"  name="password" lay-verify="password" placeholder="密码" autocomplete="off"  type="password" class="layui-input">
         <br>
-        <input name="checkPassword" lay-verify="checkPassword" placeholder="确认密码" autocomplete="off"  type="password" class="layui-input">
+        <input  name="checkPassword" lay-verify="checkPassword" placeholder="确认密码" autocomplete="off"  type="password" class="layui-input">
         <br>
         <#--<input name="contact" lay-verify="contact" placeholder="联系人" autocomplete="off"  type="contact" class="layui-input">
         <br>-->
-        <input name="email" lay-verify="emailCheck" placeholder="邮箱" autocomplete="off"  type="email" class="layui-input">
+        <input value="${user.email}" name="email" lay-verify="emailCheck" placeholder="邮箱" autocomplete="off"  type="email" class="layui-input">
         <br>
        <#-- <input name="tel" lay-verify="phoneCheck" placeholder="电话" autocomplete="off"  type="text" class="layui-input">
         <br>-->
@@ -47,18 +47,22 @@
     $(function () {
         layui.use(['form','layer'], function(){
             var form = layui.form;
+            var layer = layui.form;
             form.verify({
                 username:function(v){
                     if(v.trim()==''){
                         return "用户名不能为空";
                     }
-                },passwordd:function(v){
+                },password:function(v){
                     if(v.trim()==''){
                         return "密码不能为空";
                     }
                 },checkPassword:function (v){
+                    var password=document.getElementById('password');
                     if(v.trim()==''){
                         return "确认密码不能为空";
+                    }else if(v.trim()!==password.value){
+                        return "密码不一致";
                     }
                 },email:function (v) {
                     if(v.trim()==''){
@@ -75,7 +79,7 @@
                //      }
                // }
             });
-            form.on('submit(login)',function (data){
+           /* form.on('submit(login)',function (data){
                 $.ajax({
                     url:'goregister',
                     type: 'post',
@@ -86,8 +90,8 @@
                         layer.msg("注册失败");
                     }
                 })
-            });
-            form.render();
+            });*/
+            //form.render();
         });
        <#--layer = layui.layer;-->
         <#--var msg='${message}';-->
@@ -96,7 +100,10 @@
         <#--}-->
 
     });
-
+   var msg='${msg}';
+   if(msg){
+       layer.msg(msg, {icon: 5,anim:6,offset: 't'});
+   }
 </script>
 <!-- 底部结束 -->
 </body>

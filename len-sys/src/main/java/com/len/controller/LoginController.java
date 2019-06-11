@@ -22,6 +22,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,8 @@ public class LoginController {
     @Autowired
     private MenuService menuService;
 
+
+
     @GetMapping(value = "")
     public String loginInit() {
         return loginCheck();
@@ -69,39 +72,35 @@ public class LoginController {
         return "register";
     }
 
-    @PostMapping(value ="/goregister")
-    @ResponseBody
-    public JsonUtil goRegister(SysUser user){
-        System.out.println("*******" + user.getUsername());
-        if(user == null){
-            return JsonUtil.error("获取数据失败");
-        }
+    @PostMapping(value ="/register")
+    public String goRegister(Model model,SysUser user){
+        model.addAttribute("user",user);
         if (StringUtils.isBlank(user.getUsername())){
-            return JsonUtil.error("用户名不能为空");
+            model.addAttribute("msg","用户名不能为空");
+            return "/register";
         }
         if(StringUtils.isBlank(user.getPassword())){
-            return JsonUtil.error("密码不能为空");
+            model.addAttribute("msg","密码不能为空");
+            return "/register";
         }
 
         int result = userService.checkUser(user.getUsername());
 
         if(result >0){
-            return JsonUtil.error("用户名已存在");
+            model.addAttribute("msg","用户名已存在");
+            return "/register";
         }
         JsonUtil j = new JsonUtil();
         try{
+               userService.register(user);
 
-               userService.insertSelective(user);
-//               PUserRole pUserRole = new PUserRole();
-//               String roleid = roleService.getuserroleid();
-//               System.out.println("userroleid"+ roleid);
-
-            j.setMsg("保存用户成功");
+            model.addAttribute("msg","注册成功，请登录");
+            return "/login";
         }catch (MyException e){
-            j.setMsg("保存用户失败");
+            model.addAttribute("msg","保存用户失败");
             e.printStackTrace();
         }
-        return j;
+        return "/register";
     }
 
 

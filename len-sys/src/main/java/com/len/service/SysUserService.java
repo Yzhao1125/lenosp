@@ -62,4 +62,6 @@ public interface SysUserService extends BaseService<SysUser,String> {
   int rePass(SysUser user);
 
   void insertUser(SysUser user);
+
+  public boolean register(SysUser user);
 }

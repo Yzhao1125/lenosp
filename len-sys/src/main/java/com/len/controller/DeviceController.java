@@ -1,6 +1,7 @@
 package com.len.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.len.base.CurrentRole;
 import com.len.base.CurrentUser;
 import com.len.base.Principal;
 import com.len.core.RanGenerator.Generator;
@@ -15,12 +16,14 @@ import com.len.exception.MyException;
 import com.len.service.DeviceService;
 import com.len.entity.PDevice;
 import com.len.service.SysUserService;
+import com.len.util.CommonUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import io.swagger.models.Model;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * created by Yuan
@@ -49,6 +53,9 @@ public class DeviceController {
     private Generator generator;
 
     public String deviceID;
+
+    @Value("${adminRole}")
+    private String adminRole;
 
     @RequestMapping(value ="/showDevice")
   //  @RequiresPermissions("device:show")
@@ -71,6 +78,11 @@ public class DeviceController {
     @RequestMapping(value = "/showDeviceList")
     @ResponseBody
     public ReType showDeviceList(PDevice pDevice, String page, String limit){
+        CurrentUser user = CommonUtil.getUser();
+        List<CurrentRole> currentRoleList = user.getCurrentRoleList();
+        long count = currentRoleList.stream().filter(s -> adminRole.equals(s.getRoleName())).count();
+        if(count==0)
+            pDevice.setUserId(user.getId());
         return deviceService.show(pDevice, Integer.valueOf(page), Integer.valueOf(limit));
     }
 

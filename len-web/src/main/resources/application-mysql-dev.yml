@@ -62,3 +62,6 @@ logging:
     com.len.mapper: debug
 
 dataType: mysql
+
+initRole: customer
+adminRole: admin

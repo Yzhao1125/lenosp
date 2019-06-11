@@ -35,7 +35,14 @@
   </select>
 
   <select id="selectListByPage" parameterType="com.len.entity.PDevice" resultMap="BaseResultMap">
-    select * from p_device
+    select * from p_device p
+    left join p_user_device pu on p.deviceId=pu.deviceid
+
+    <if test="userId!=null">
+      where pu.userid=#{userId}
+    </if>
+
+
   </select>
 
   <select id="selectListByPage2" parameterType="com.len.entity.PDevice" resultMap="BaseResultMap">

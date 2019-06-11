@@ -107,6 +107,7 @@ public abstract class BaseServiceImpl<T, E extends Serializable> implements Base
             }
             Field field = clazz.getDeclaredField(operator);
             field.setAccessible(true);
+            if(currentUser!=null)
             field.set(record, currentUser.getId());
             Field fieldDate = clazz.getDeclaredField(operateDate);
             fieldDate.setAccessible(true);

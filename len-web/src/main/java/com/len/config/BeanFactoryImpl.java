@@ -12,7 +12,7 @@ import org.springframework.core.ResolvableType;
  * @date 2018/1/31.
  * @email 154040976@qq.com
  */
-@Configuration
+//@Configuration
 public class BeanFactoryImpl implements BeanFactoryAware {
 
 

@@ -64,14 +64,14 @@
     </ul>
   </div>
 
-  <#--
+
   <#macro tree data start end>
     <#if (start=="start")>
-    <div class="layui-side layui-nav-tree layui-bg-white kit-side">
-    <div class="layui-side-scroll">
-      <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
-    <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
-    </#if>
+      <div class="layui-side layui-nav-tree layui-bg-white kit-side">
+        <div class="layui-side-scroll">
+          <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+          <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+            </#if>
     <#list data as child>
       <#if child.children?size gt 0>
         <li class="layui-nav-item">
@@ -93,46 +93,46 @@
     </div>
     </#if>
   </#macro>
-  <@tree data=menu start="start" end="end"/>-->
+  <@tree data=menu start="start" end="end"/>
 
 
-  <div class="layui-side layui-nav-tree layui-bg-black kit-side">
-    <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar="">
-      <li class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" kit-target="" data-options="{url:'/showDevice',icon:'',title:'设备管理',id:'1001'}" value="" >
-          <i class="layui-icon"></i><span>设备管理</span></a>
-      </li>
-      <li class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" kit-target="" data-options="{url:'monitorDevice',icon:'',title:'设备监控',id:'2001'}" value="" >
-          <i class="layui-icon"></i><span>设备监控</span></a>
-      </li>
-      <li class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" kit-target="" data-options="{url:'locateDevice',icon:'',title:'设备定位',id:'3001'}" value="" >
-          <i class="layui-icon"></i><span>设备定位</span></a>
-      </li>
-      <li class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" kit-target="" data-options="{url:'user/info',icon:'',title:'账户信息',id:'4001'}" value="" >
-          <i class="layui-icon"></i><span>账户信息</span></a>
-      </li>
-      <li class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" kit-target="" data-options="{url:'help',icon:'',title:'帮助文档',id:'5001'}" value="" >
-          <i class="layui-icon"></i><span>帮助文档</span></a>
-      </li>
-      <li class="layui-nav-item layui-nav-itemed">
-        <a class="" href="javascript:;"><i aria-hidden="true" class="layui-icon"></i><span>系统管理</span><span class="layui-nav-more"></span></a>
-        <dl class= "layui-nav-child">
-          <dd><a href="javascript:;" kit-target="" data-options="{url:'user/showUser',icon:'',title:'用户管理',id:'6001'}" value="" >
-              <i class="layui-icon"></i><span>用户管理</span></a></dd>
-          <dd><a href="javascript:;" kit-target="" data-options="{url:'job/showJob',icon:'',title:'定时任务',id:'7001'}" value="" >
-              <i class="layui-icon"></i><span>定时任务</span></a></dd>
-          <dd><a href="javascript:;" kit-target="" data-options="{url:'menu/showMenu',icon:'',title:'菜单管理',id:'8001'}" value="" >
-              <i class="layui-icon"></i><span>菜单管理</span></a></dd>
-          <dd><a href="javascript:;" kit-target="" data-options="{url:'role/showRole',icon:'',title:'权限管理',id:'9001'}" value="" >
-              <i class="layui-icon"></i><span>权限管理</span></a></dd>
-        </dl>
-      </li>
-    </ul>
-  </div>
+  <#--<div class="layui-side layui-nav-tree layui-bg-black kit-side">
+      <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar="">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;" kit-target="" data-options="{url:'/showDevice',icon:'',title:'设备管理',id:'1001'}" value="" >
+            <i class="layui-icon"></i><span>设备管理</span></a>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;" kit-target="" data-options="{url:'monitorDevice',icon:'',title:'设备监控',id:'2001'}" value="" >
+            <i class="layui-icon"></i><span>设备监控</span></a>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;" kit-target="" data-options="{url:'locateDevice',icon:'',title:'设备定位',id:'3001'}" value="" >
+            <i class="layui-icon"></i><span>设备定位</span></a>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;" kit-target="" data-options="{url:'user/info',icon:'',title:'账户信息',id:'4001'}" value="" >
+            <i class="layui-icon"></i><span>账户信息</span></a>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;" kit-target="" data-options="{url:'help',icon:'',title:'帮助文档',id:'5001'}" value="" >
+            <i class="layui-icon"></i><span>帮助文档</span></a>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;"><i aria-hidden="true" class="layui-icon"></i><span>系统管理</span><span class="layui-nav-more"></span></a>
+          <dl class= "layui-nav-child">
+            <dd><a href="javascript:;" kit-target="" data-options="{url:'user/showUser',icon:'',title:'用户管理',id:'6001'}" value="" >
+                <i class="layui-icon"></i><span>用户管理</span></a></dd>
+            <dd><a href="javascript:;" kit-target="" data-options="{url:'job/showJob',icon:'',title:'定时任务',id:'7001'}" value="" >
+                <i class="layui-icon"></i><span>定时任务</span></a></dd>
+            <dd><a href="javascript:;" kit-target="" data-options="{url:'menu/showMenu',icon:'',title:'菜单管理',id:'8001'}" value="" >
+                <i class="layui-icon"></i><span>菜单管理</span></a></dd>
+            <dd><a href="javascript:;" kit-target="" data-options="{url:'role/showRole',icon:'',title:'权限管理',id:'9001'}" value="" >
+                <i class="layui-icon"></i><span>权限管理</span></a></dd>
+          </dl>
+        </li>
+      </ul>
+  </div>-->
 
 
   <div class="layui-body" <#--style="border:1px solid red;padding-bottom:0;"--> id="container">

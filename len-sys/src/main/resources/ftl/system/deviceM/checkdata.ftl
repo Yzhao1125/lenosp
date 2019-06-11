@@ -623,7 +623,6 @@
             type:"post",
             url: '/stop?id='+id ,
             success: function(){
-
             },
         });
     };

@@ -93,8 +93,8 @@ public class ShiroConfig {
     filters.put("verCode",getVerfityCodeFilter());
     sfb.setFilters(filters);
     Map<String, String> filterMap = new LinkedHashMap<>();
+//    filterMap.put("/login","verCode,anon");
     filterMap.put("/login","verCode,anon");
-    filterMap.put("/login","anon");
     filterMap.put("/register","anon");  ///yxt
     filterMap.put("/goregister","anon");
     filterMap.put("/getCode","anon");

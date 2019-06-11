@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * 和postProcessBeforeInitialization()方法
  * 之所以用z开头是因为 初始化有顺序
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class ZBeanFactory implements BeanPostProcessor {
 

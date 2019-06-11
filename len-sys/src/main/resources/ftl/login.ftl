@@ -24,9 +24,9 @@
     <div id="darkbannerwrap"></div>
 
     <form method="post" action="/login" class="layui-form" >
-        <input name="uname" placeholder="用户名" autocomplete="off"  type="text" lay-verify="uname" class="layui-input" >
+        <input value="${user.username}" name="uname" placeholder="用户名" autocomplete="off"  type="text" lay-verify="uname" class="layui-input" >
         <hr class="hr15">
-        <input name="pwd" lay-verify="pwd" placeholder="密码" autocomplete="off"  type="pwd" class="layui-input">
+        <input name="pwd" type="password" lay-verify="pwd" placeholder="密码" autocomplete="off"  class="layui-input">
         <hr class="hr15">
         <div  class="layui-inline">
             <label class="layui-form-label" style="width:40px;padding: 9px 0px;">验证码:</label>
@@ -36,12 +36,7 @@
             <div class="layui-input-inline">
                 <img src="" id="code">
             </div>
-
         </div>
-        <#--<div>-->
-        <#--<label class="layui-form-label" style="width:40px;padding: 9px 0px;">记住我</label>  由于不好验证 目前去掉-->
-            <#--<input type="checkbox"   name="rememberMe" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">-->
-        <#--</div>-->
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >
