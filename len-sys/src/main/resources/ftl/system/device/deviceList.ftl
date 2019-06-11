@@ -91,7 +91,7 @@
         table.render({
             id: 'deviceList',
             elem: '#deviceList'
-            , url: '/showDeviceList'
+            , url: '/showDeviceList?timestamp=' + new Date().getTime()
             , cols: [[
                 {checkbox: true, fixed: true, width: '5%'}
                 // , {

@@ -98,7 +98,7 @@
         table.render({
             id: 'ConDeList',
             elem: '#ConDeList'
-            , url: 'showConDevice'
+            , url: 'showConDevice?timestamp='+ new Date().getTime()
             , cols: [[
                 {checkbox: true, fixed: true, width: '5%'}
                 // , {
