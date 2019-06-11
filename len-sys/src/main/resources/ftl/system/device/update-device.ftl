@@ -41,6 +41,7 @@
                                    autocomplete="off" class="layui-input">
                         </div>
                     </div>
+                 </div>
                 </div>
 
                 <div class="layui-form-item">
@@ -48,7 +49,7 @@
                         <legend style="font-size:16px;">设备用户信息</legend>
                     </fieldset>
                 </div>
-
+              <div style="margin-left:25%">
                 <div class="layui-form-item">
                     <div class ="layui-inline">
                     <label for="username" class="layui-form-label">
@@ -70,15 +71,35 @@
                         </div>
                     </div>
                 </div>
+              </div>
 
-                <div class="layui-form-item">
-                    <label for="devicePw" class="layui-form-label">
-                        <span class="x-red">*</span>确认密码
-                    </label>
-                    <div class="layui-input-inline">
-                        <input type="password" id="devicePwcheck" name="devicePwcheck"  lay-verify="devicePwcheck"
+
+                  <div class="layui-form-item">
+                      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                          <legend style="font-size:16px;">修改密码</legend>
+                      </fieldset>
+                  </div>
+                  <div style="margin-left:25%">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                          <label for="devicePw" class="layui-form-label">
+                            <span class="x-red">*</span>旧密码
+                          </label>
+                            <div class="layui-input-inline">
+                            <input type="password" id="oldpw" name="oldpw" lay-verify="oldpw"
                                autocomplete="off" class="layui-input">
-                    </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label for="devicePw" class="layui-form-label">
+                                <span class="x-red">*</span>新密码
+                            </label>
+                            <div class="layui-input-inline">
+                            <input type="password" id="newpw" name="newpw" lay-verify="newpw"
+                                   autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
                 </div>
                 <div style="height: 60px"></div>
             </div>
@@ -88,7 +109,7 @@
       position: fixed;bottom: 1px;margin-left:-20px;">
                 <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
                     <button  class="layui-btn layui-btn-normal" lay-filter="add" lay-submit>
-                        更新
+                        确定
                     </button>
                     <button  class="layui-btn layui-btn-primary" id="close">
                         取消

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>3D打印设备物联平台</title>
+  <title>3D打印设备物联教育平台</title>
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/layui/css/layui.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/plugins/font-awesome/css/font-awesome.min.css" media="all" />
   <link rel="stylesheet" href="${re.contextPath}/plugin/build/css/app.css" media="all" />
@@ -19,7 +19,7 @@
 <body class="kit-theme">
 <div class="layui-layout layui-layout-admin kit-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">3D打印设备物联平台</div>
+    <div class="layui-logo">3D打印设备物联教育平台</div>
     <div class="layui-logo kit-logo-mobile"></div>
     <#--    <div class="layui-hide-xs">
         <ul class="layui-nav layui-layout-left kit-nav">
@@ -53,12 +53,13 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
           <#assign currentUser = Session["curentUser"]>
-          <img src="/images/${currentUser.photo}" class="layui-nav-img">${currentUser.username}
+          <#--<img src="/images/${currentUser.photo}" class="layui-nav-img">-->
+          ${currentUser.username}
         </a>
-        <#-- <dl class="layui-nav-child">
-           <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
-           <dd><a href="javascript:;">安全设置</a></dd>
-         </dl>-->
+         <#--<dl class="layui-nav-child">-->
+           <#--<dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>-->
+           <#--<dd><a href="javascript:;">安全设置</a></dd>-->
+         <#--</dl>-->
       </li>
       <li class="layui-nav-item"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
     </ul>
@@ -67,7 +68,7 @@
 
   <#macro tree data start end>
     <#if (start=="start")>
-      <div class="layui-side layui-nav-tree layui-bg-white kit-side">
+      <div class="layui-side layui-nav-tree layui-bg-black kit-side">
         <div class="layui-side-scroll">
           <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
           <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
