@@ -16,6 +16,7 @@ To change this template use File | Settings | File Templates.-->
     <link rel="stylesheet" href="${re.contextPath}/plugin/layui/css/layui.css">
     <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
 </head>
 
 <body>
@@ -28,8 +29,6 @@ To change this template use File | Settings | File Templates.-->
                 </fieldset>
             </div>-->
             <div style="margin-left:25%">
-
-
                 <div class="layui-form-item">
                     <label for="dname" class="layui-form-label">
                         <span class="x-red">*</span>设备名称
@@ -45,11 +44,20 @@ To change this template use File | Settings | File Templates.-->
                         <span class="x-red">*</span>设备密码
                     </label>
                     <div class="layui-input-inline">
-                        <input type="devicePw" id="devicePw" name="devicePw"  lay-verify="devicePw"
+                        <input type="password" id="devicePw" name="devicePw"  lay-verify="devicePw"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
+                <div class="layui-form-item">
+                    <label for="devicePw" class="layui-form-label">
+                        <span class="x-red">*</span>确认密码
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="password" id="devicePwcheck" name="devicePwcheck"  lay-verify="devicePwcheck"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div style="height: 60px"></div>
             </div>
         </div>
@@ -71,18 +79,18 @@ To change this template use File | Settings | File Templates.-->
         $ = layui.jquery;
         var form = layui.form
             ,layer = layui.layer;
-      /*  layui.tree({
-            elem:'#tree',
-            nodes:${menus}
-            ,click: function(node){
-                if(node.menuType=='1'){
-                    layer.msg('请勿选择按钮', {icon: 5,anim:6});
-                    return false;
-                }
-                $('#pId').val(node.id);
-                $('#pName').val(node.name);
-            }
-        });*/
+       <#--layui.tree({-->
+            <#--elem:'#tree',-->
+            <#--nodes:${menus}-->
+            <#--,click: function(node){-->
+                <#--if(node.menuType=='1'){-->
+                    <#--layer.msg('请勿选择按钮', {icon: 5,anim:6});-->
+                    <#--return false;-->
+                <#--}-->
+                <#--$('#pId').val(node.id);-->
+                <#--$('#pName').val(node.name);-->
+            <#--}-->
+        <#--});-->
 /*        $('#select_icon').click(function(){
             parent.layer.open({
                 id:'icon',
@@ -108,6 +116,15 @@ To change this template use File | Settings | File Templates.-->
                     if (v.trim() == '') {
                         return '请设置设备密码';
                     }
+                }
+                ,devicePwcheck: function (v) {
+                    var password = document.getElementById('devicePw');
+                    if(v.trim()==''){
+                        return '请再输入一次设备密码';
+                    }else if(v.trim()!= password.value){
+                        return '设备密码不一致';
+                    }
+
                 }
         });
 
@@ -141,34 +158,7 @@ To change this template use File | Settings | File Templates.-->
         });
         //监听提交
         form.on('submit(add)', function(data){
-          //  data.field['icon']=$('#icon').text();
-            $.ajax({
-                url:'addDevice',
-                type:'post',
-                data:data.field,
-                async:false,
-                dataType: "json",
-                traditional: true,
-                success:function(data){
-                    var da= data;
-                    if(da.toString().)
-                    {
-                        alert("");
-                    }else if(da.){
-
-                    }
-                        alert();
-                    console.info(data.msg);
-                    var index = parent.layer.getFrameIndex(window.name);
-                    window.top.layer.msg(data.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
-                    parent.layer.close(index);
-                    parent.location.replace(parent.location.href);
-                },error:function(){
-                    var index = parent.layer.getFrameIndex(window.name);
-                    window.top.layer.msg('请求失败',{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
-                    parent.layer.close(index);
-                }
-            });
+            layerAjax('addDevice',data.field,'deviceList');
             return false;
         });
         form.render();

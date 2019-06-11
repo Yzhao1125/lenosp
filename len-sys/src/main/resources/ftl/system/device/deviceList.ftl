@@ -25,14 +25,11 @@
 <body>
 <div class="lenos-search">
     <div class="select">
-        设备名称：
+        设备名称
         <div class="layui-inline">
-            <input class="layui-input" height="20px" id="uname" autocomplete="off">
+            <input class="layui-input" height="20px" id="dname" autocomplete="off">
         </div>
-       <#-- 邮箱：
-        <div class="layui-inline">
-            <input class="layui-input" height="20px" id="email" autocomplete="off">
-        </div>-->
+
         <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
         </button>
         <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
@@ -40,7 +37,6 @@
             <i class="layui-icon">ဂ</i>
         </button>
     </div>
-
 </div>
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
     <div class="layui-btn-group">
@@ -98,13 +94,13 @@
             , url: '/showDeviceList'
             , cols: [[
                 {checkbox: true, fixed: true, width: '5%'}
-                , {
-                    field: 'id',
-                    title: '序号',
-                    width: '7%',
-                    sort: true,
-                    style: 'background-color: #009688; color: #fff;'
-                }
+                // , {
+                //     field: 'id',
+                //     title: '序号',
+                //     width: '7%',
+                //     sort: true,
+                //     style: 'background-color: #009688; color: #fff;'
+                // }
                 , {field: 'dname', title: '设备名称', width: '20%', sort: true}
                 , {field: 'deviceid', title: '设备编号', width: '22%'}
                 , {field: 'connect', title: '状态', width: '20%'}
@@ -118,46 +114,44 @@
         var $ = layui.$, active = {  //根据检索条件，刷新设备表格
             select: function () {
                 var dname = $('#dname').val();
-               /* var email = $('#email').val();*/
                 console.info(dname);
                 table.reload('deviceList', {
                     where: {
                         dname: dname,
-                      /*  email: email*/
                     }
                 });
             },
             reload:function(){
+                var dname = $('#dname').val();
                 $('#dname').val('');
-             /*   $('#email').val('');*/
                 table.reload('deviceList', {
                     where: {
-                        dname: null,
-                     /*   email: null*/
+                        dname: dname,
+
                     }
                 });
             },
-            add: function () {  //新增设备
-                add('添加设备', 'showAddDevice', 700, 450);
-            },
-            update: function () {
-                var checkStatus = table.checkStatus('deviceList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行编辑,已选['+data.length+']行', {icon: 5});
-                    return false;
-                }
-                update('编辑设备', 'updateDevice?id=' + data[0].id, 700, 450);
-            },
-            detail: function () {
-                var checkStatus = table.checkStatus('deviceList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一行查看,已选['+data.length+']行', {icon: 5});
-                    return false;
-                }
-                detail('查看设备信息', 'updateDevice?id=' + data[0].id, 700, 450);
-            },
+            // add: function () {  //新增设备
+            //     add('添加设备', 'showAddDevice', 700, 450);
+            // },
+            // update: function () {
+            //     var checkStatus = table.checkStatus('deviceList')
+            //         , data = checkStatus.data;
+            //     if (data.length != 1) {
+            //         layer.msg('请选择一行编辑,已选['+data.length+']行', {icon: 5});
+            //         return false;
+            //     }
+            //     update('编辑设备', 'updateDevice?id=' + data[0].id, 700, 450);
+            // },
+            // detail: function () {
+            //     var checkStatus = table.checkStatus('deviceList')
+            //         , data = checkStatus.data;
+            //     if (data.length != 1) {
+            //         layer.msg('请选择一行查看,已选['+data.length+']行', {icon: 5});
+            //         return false;
+            //     }
+            //     detail('查看设备信息', 'updateDevice?id=' + data[0].id, 700, 450);
+            // },
            /* changePwd:function(){
                 var checkStatus = table.checkStatus('deviceList')
                     , data = checkStatus.data;
@@ -176,8 +170,10 @@
         //监听工具条
         table.on('tool(device)', function (obj) {
             var data = obj.data;
+            var eid = data.deviceid;
+            console.log("ssssssssssss"+eid);
             if (obj.event === 'detail') {
-                detail('编辑设备', 'updateDevice?id=' + data.id, 700, 450);
+                detail('查看设备', 'updateDevice?eid=' + eid, 700, 450);
             } else if (obj.event === 'del') {
                 layer.confirm('确定删除设备[<label style="color: #00AA91;">' + data.dname + '</label>]?', {
                     btn: ['逻辑删除', '物理删除']
@@ -240,7 +236,7 @@
             h = ($(window).height() - 50);
         };
         layer.open({
-            id: 'user-detail',
+            id: 'device-detail',
             type: 2,
             area: [w + 'px', h + 'px'],
             fix: false,

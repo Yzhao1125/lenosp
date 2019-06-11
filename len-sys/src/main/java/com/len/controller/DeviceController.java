@@ -15,20 +15,19 @@ import com.len.entity.SysUser;
 import com.len.exception.MyException;
 import com.len.service.DeviceService;
 import com.len.entity.PDevice;
+import com.len.service.PUserDeviceService;
 import com.len.service.SysUserService;
+import com.len.util.Checkbox;
 import com.len.util.CommonUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
-import io.swagger.models.Model;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +47,11 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+    @Autowired
     private SysUserService userService;
+
+    @Autowired
+    private PUserDeviceService pUserDeviceService;
 
     private Generator generator;
 
@@ -75,7 +78,7 @@ public class DeviceController {
      * @param limit
      * @return
      */
-    @RequestMapping(value = "/showDeviceList")
+    @GetMapping(value = "/showDeviceList")
     @ResponseBody
     public ReType showDeviceList(PDevice pDevice, String page, String limit){
         CurrentUser user = CommonUtil.getUser();
@@ -104,28 +107,28 @@ public class DeviceController {
             return JsonUtil.error("设备名称已存在");
         }
 
-  /*      String msg = "{\"EID\":\"6437415503402621\",\"PW\":\"123456\"}";
-        String authmsg = null;
-        authmsg = deviceService.authDevice(msg);
-        System.out.println("controller Test:"+authmsg);*/
-
         JsonUtil jsonUtil = new JsonUtil();
 
-      //  CurrentUser currentUser = (CurrentUser) ShiroUtil.getSession().getAttribute("currentUser");
-      //  currentUser.getId();
+        //获取当前用户
+        CurrentUser user = CommonUtil.getUser();
+        String userid = user.getId();
+
+        //
         PDevice pDevice= new PDevice();
         pDevice.setConnect("设备尚未认证");
         pDevice.setDname(pDeviceS.getDname());
         pDevice.setDevicepw(pDeviceS.getDevicePw());
+
         generator = new Generator();
         deviceID =generator.generateString();
         pDevice.setDeviceid(deviceID); //随机生成设备编号，还缺少一个与已有设备编号比对的过程
-        pDevice.setIp("112.114.34.87");
+        pDevice.setIp("");
         try {
-            deviceService.insertSelective(pDevice);
+            deviceService.addDevice(pDevice);
              PUserDevice pUserDevice = new PUserDevice();
-             pUserDevice.setDeviceid(pDevice.getId());
-            // pUserDevice.setUserid();
+             pUserDevice.setDeviceid(deviceID);
+             pUserDevice.setUserid(userid);
+            pUserDeviceService.addUserDevice(pUserDevice);
             jsonUtil.setMsg("保存成功");
         }catch (MyException e){
             jsonUtil.setMsg("保存失败");
@@ -137,5 +140,24 @@ public class DeviceController {
     }
 
 
+    @GetMapping(value = "updateDevice")
+    public String goUpdateUser(String eid, Model model, boolean detail) {
+        System.out.println("0000000000000"+eid);
+        if (StringUtils.isNotEmpty(eid)) {
+
+            PDevice pDevice = deviceService.selectDevicebyeid(eid);
+            System.out.println("1111111111"+pDevice.getDname());
+            String uid = pUserDeviceService.getuidbyeid(eid);
+            System.out.println("22222222"+uid);
+            SysUser user = userService.selectByPrimaryKey(uid);
+            System.out.println("333333"+user.getUsername());
+
+            model.addAttribute("pdevice", pDevice);
+            model.addAttribute("user",user);
+         //   model.addAttribute("boxJson", checkboxList);
+        }
+        model.addAttribute("detail", detail);
+        return "system/device/update-device";
+    }
 
 }

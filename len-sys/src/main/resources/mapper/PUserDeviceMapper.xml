@@ -5,7 +5,17 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="userid" jdbcType="INTEGER" property="userid" />
-    <result column="deviceid" jdbcType="INTEGER" property="deviceid" />
+    <id column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="deviceid" jdbcType="VARCHAR" property="deviceid" />
   </resultMap>
+
+<insert id="addUserDevice" parameterType="com.len.entity.PUserDevice">
+  insert into p_user_device (userid, deviceid) VALUES
+  (#{userid},#{deviceid})
+</insert>
+
+  <select id="getuidbyeid" parameterType="java.lang.String" resultType="java.lang.String">
+    select userid from p_user_device where deviceid = #{eid}
+  </select>
+
 </mapper>

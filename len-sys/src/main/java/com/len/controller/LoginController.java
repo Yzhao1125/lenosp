@@ -74,7 +74,9 @@ public class LoginController {
 
     @PostMapping(value ="/register")
     public String goRegister(Model model,SysUser user){
+
         model.addAttribute("user",user);
+
         if (StringUtils.isBlank(user.getUsername())){
             model.addAttribute("msg","用户名不能为空");
             return "/register";

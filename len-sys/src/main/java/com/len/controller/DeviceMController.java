@@ -2,12 +2,16 @@ package com.len.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.len.base.CurrentRole;
+import com.len.base.CurrentUser;
 import com.len.core.SocketThread.Handler;
 import com.len.entity.Device_state;
 import com.len.entity.PDevice;
 import com.len.service.DeviceMService;
 import com.len.service.DeviceService;
+import com.len.util.CommonUtil;
 import com.len.util.ReType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,9 +52,11 @@ public class DeviceMController {
 
 
 
+
     @RequestMapping(value = "/showConDevice")
     @ResponseBody
     public ReType showDeviceList(PDevice pDevice, String page, String limit){
+
         ReType reType = deviceService.showCon(pDevice,Integer.valueOf(page),Integer.valueOf(limit));
         return reType;
     }
@@ -224,4 +230,29 @@ public class DeviceMController {
             System.out.println("该设备连接断开");
         }
     }
-}
+
+    @RequestMapping(value ="checkdevice2")
+    public String checkRealstat2(String param) {
+        System.out.println("shebei:" + param);
+        // List<Device_state> statelist = deviceMService.getDeviceStateList(eid);
+        deviceId = param;
+        String Eid = param;
+        System.out.println("start:" + Eid);
+        Socket s2 = Handler.list_socket_device.get(Eid);
+        if (s2 != null && s2.isConnected()) {
+            try {
+                OutputStream outputStream = s2.getOutputStream();
+                PrintWriter printWriter = new PrintWriter(outputStream);
+                printWriter.print("STA");
+                printWriter.flush();
+                System.out.println("发送成功");
+            } catch (IOException e) {
+                System.out.println("Socket 服务器向客户端发送数据异常");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("服务器无客户端连接");
+        }
+        return "system/deviceM/checkdata";
+      }
+    }

@@ -178,7 +178,7 @@
     table.on('tool(user)', function (obj) {
       var data = obj.data;
       if (obj.event === 'detail') {
-        detail('编辑用户', 'updateUser?id=' + data.id, 700, 450);
+        detail('查看用户', 'updateUser?id=' + data.id, 700, 450);
       } else if (obj.event === 'del') {
         layer.confirm('确定删除用户[<label style="color: #00AA91;">' + data.username + '</label>]?', {
           btn: ['逻辑删除', '物理删除']

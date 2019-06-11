@@ -52,4 +52,18 @@
 <select id="getalldevice" resultMap="BaseResultMap" >
   select * from p_device
 </select>
+
+  <select id="selectbyeid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from p_device where deviceId = #{eid}
+  </select>
+
+
+  <insert id="addDevice" parameterType="com.len.entity.PDevice">
+    insert into p_device (deviceId, devicePW, dname, connect, IP) VALUES
+    (#{deviceid},#{devicepw},#{dname},#{connect},#{ip})
+  </insert>
+
+  <update id="updateIp" parameterType="com.len.entity.PDevice">
+    update p_device set IP=#{inetAddress,jdbcType=VARCHAR} where deviceId =#{eid,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -81,6 +81,7 @@ public class Handler implements Runnable{
                         add_socket_device(authjsonObject.getString("EID"),socket);
                         deviceService = SpringUtil.getBean("deviceServiceImpl");
                         authmsg = deviceService.authDevice(msg);
+                        deviceService.updateDeviceIp(authjsonObject.getString("EID"), socket.getInetAddress().toString().substring(1));
                         if ("true".equals(authmsg)) {
                             pw.write("OK");
                             //pw.println("OK");
@@ -105,36 +106,6 @@ public class Handler implements Runnable{
                 }
 
             }
-
-      /*      while ((msg = br.readLine())!= null){  //
-                System.out.println(msg);
-                if(msg.startsWith("AUT")) {  //认证消息 AUT{"EID":"****","PW":"****"}END
-                    msg = msg.substring(3, msg.length() - 3);
-                    System.out.println("44444" + msg);
-                    authjsonObject= new JSONObject();
-                    authjsonObject =JSON.parseObject(msg);
-                    add_socket_device(authjsonObject.getString("EID"),socket);
-                    deviceService = SpringUtil.getBean("deviceServiceImpl");
-                    authmsg = deviceService.authDevice(msg);
-                    if ("true".equals(authmsg)) {
-                        pw.write("OK");
-                        //pw.println("OK");
-                        pw.flush();
-                    } else {
-                        System.out.println("认证失败");
-                    }
-                }else if(msg.startsWith("STA")){
-                    msg = msg.substring(3, msg.length() - 3);
-                    System.out.println("状态数据："+ msg);
-                    jsonObject = new JSONObject();
-                    jsonObject = JSON.parseObject(msg);
-                    deviceMService = SpringUtil.getBean("deviceStateServiceImpl");
-                    int in = deviceMService.saveDeviceState(jsonObject);
-                    System.out.println("存入结果："+ in);
-                }
-
-            }*/
-
 
         }catch (IOException e){
             //TODO: handle exception

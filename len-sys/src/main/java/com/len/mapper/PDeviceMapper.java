@@ -22,4 +22,10 @@ public interface PDeviceMapper extends BaseMapper<PDevice,String> {
 
 
     List<PDevice> getalldevice();
+
+    void addDevice(PDevice pDevice);
+
+    void updateIp(String eid, String inetAddress);
+
+    PDevice selectbyeid(String eid);
 }

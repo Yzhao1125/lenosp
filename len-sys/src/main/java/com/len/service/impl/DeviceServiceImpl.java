@@ -5,23 +5,34 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.len.base.BaseMapper;
+import com.len.base.CurrentRole;
+import com.len.base.CurrentUser;
 import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.PDevice;
 
 import com.len.exception.MyException;
 import com.len.mapper.PDeviceMapper;
 import com.len.service.DeviceService;
+import com.len.util.CommonUtil;
 import com.len.util.ReType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implements DeviceService {
 
+
     @Autowired
     PDeviceMapper deviceMapper;
+
+    @Value("${adminRole}")
+    private String adminRole;
+
     @Override
     public List<String> getallIp() {
         return deviceMapper.getallIp();
@@ -79,18 +90,50 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
 
         List<PDevice> tList = null;
         Page<PDevice> tPage = PageHelper.startPage(page, limit);
+        List<PDevice> fList = new ArrayList<>();
+
+        CurrentUser user = CommonUtil.getUser();
+        List<CurrentRole> currentRoleList = user.getCurrentRoleList();
+        long count = currentRoleList.stream().filter(s -> adminRole.equals(s.getRoleName())).count();
+        if(count==0)
+            pDevice.setUserId(user.getId());
 
         try {
-            tList = deviceMapper.selectListByPage2(pDevice);
+            tList = deviceMapper.selectListByPage(pDevice);
+            for(PDevice p:tList){
+                if(p.getConnect().equals("已连接")){
+                    System.out.println("&&&&&&&&&&&&&&"+p.getDname());
+                    fList.add(p);
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@"+fList.get(0).getDname());
+                }
+
+            }
         } catch (MyException e) {
           //  log.error("class:BaseServiceImpl ->method:show->message:" + e.getMessage());
             e.printStackTrace();
         }
-        return new ReType(tPage.getTotal(), tList);
+        return new ReType(tPage.getTotal(), fList);
     }
 
     @Override
     public List<PDevice> getAlldevice() {
+
         return deviceMapper.getalldevice();
+    }
+
+    @Override
+    public void addDevice(PDevice pDevice) {
+       deviceMapper.addDevice(pDevice);
+    }
+
+    @Override
+    public void updateDeviceIp(String eid, String inetAddress) {
+        deviceMapper.updateIp(eid,inetAddress);
+
+    }
+
+    @Override
+    public PDevice selectDevicebyeid(String eid) {
+        return deviceMapper.selectbyeid(eid);
     }
 }

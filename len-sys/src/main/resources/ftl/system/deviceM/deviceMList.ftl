@@ -63,14 +63,21 @@
     </div>
 </div>-->
 
-<blockquote class="layui-elem-quote role_search">
-    <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input id="keyword" type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+<div class="lenos-search">
+    <div class="select">
+        设备名称
+        <div class="layui-inline">
+            <input class="layui-input" height="20px" id="dname" autocomplete="off">
         </div>
-        <a class="layui-btn search_btn" onclick="queryUser()">查询</a>
+
+        <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
+                data-type="reload">
+            <i class="layui-icon">ဂ</i>
+        </button>
     </div>
-</blockquote>
+</div>
 
 
 <table id="ConDeList" class="layui-hide" lay-filter="Device"></table>
@@ -94,13 +101,13 @@
             , url: 'showConDevice'
             , cols: [[
                 {checkbox: true, fixed: true, width: '5%'}
-                , {
-                    field: 'id',
-                    title: '序号',
-                    width: '7%',
-                    sort: true,
-                    style: 'background-color: #009688; color: #fff;'
-                }
+                // , {
+                //     field: 'id',
+                //     title: '序号',
+                //     width: '7%',
+                //     sort: true,
+                //     style: 'background-color: #009688; color: #fff;'
+                // }
                 , {field: 'dname', title: '设备名称', width: '15%', sort: true}
                 , {field: 'deviceid', title: '设备编号', width: '22%'}
                 , {field: 'connect', title: '连接状态', width: '11%'}
@@ -120,8 +127,20 @@
                         dname: dname,
                     }
                 });
-            }
+            },
+            reload:function(){
+                var dname = $('#dname').val();
+                $('#dname').val('');
+                /*   $('#email').val('');*/
+                table.reload('ConDeList', {
+                    where: {
+                        dname: dname,
+                        /*   email: null*/
+                    }
+                });
+            },
         };
+
 
         table.on('tool(Device)',function (obj){
             var data = obj.data;

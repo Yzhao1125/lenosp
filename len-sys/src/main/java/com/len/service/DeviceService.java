@@ -4,6 +4,7 @@ import com.len.base.BaseService;
 import com.len.entity.PDevice;
 import com.len.util.ReType;
 
+import java.net.InetAddress;
 import java.util.List;
 /**
  * created by Yuan
@@ -21,4 +22,10 @@ public interface DeviceService extends BaseService<PDevice,String> {
 
 
     List<PDevice> getAlldevice();
+
+    void addDevice(PDevice pDevice);
+
+    void updateDeviceIp(String eid, String inetAddress);
+
+    PDevice selectDevicebyeid(String eid);
 }
