@@ -20,4 +20,5 @@ public class FreemarkerShiroConfig implements InitializingBean {
   public void afterPropertiesSet() throws Exception {
     configuration.setSharedVariable("shiro", new ShiroTags());
   }
+
 }

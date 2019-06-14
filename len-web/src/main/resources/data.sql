@@ -1,0 +1,1 @@
+UPDATE p_device set connect = "未连接" where connect ="已连接" ;

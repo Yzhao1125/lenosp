@@ -137,6 +137,7 @@ public class DeviceMController {
                 printWriter.print("STOP");
                 printWriter.flush();
                 System.out.println("发送成功");
+                Handler.connectflag = false;
             } catch (IOException e) {
                 System.out.println("发送数据异常");
                 e.printStackTrace();

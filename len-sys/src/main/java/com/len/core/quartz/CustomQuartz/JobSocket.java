@@ -24,28 +24,33 @@ public class JobSocket implements Job {
     @Autowired
     private DeviceService deviceService;
 
-    InputStream inputStream;
+
+
 
  //   Map<String,Socket> socketMap = new ConcurrentHashMap<>();
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("JobSocket：启动任务=======================");
-        run();
+        try {
+            run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("JobSocket：下次执行时间====="+
                 new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
                         .format(context.getNextFireTime())+"==============");
     }
 
-    public void run() {
+    public void run() throws IOException {
          for (Map.Entry<String,Socket> entry : Handler.list_socket_device.entrySet()){
                  Socket insocket = entry.getValue();
-                 if(insocket.isClosed()){
-                     String disconEId = entry.getKey();
-                     Handler.list_socket_device.remove(entry.getKey());
-                     System.out.println(disconEId + "已断开连接");
-                     deviceService.updateDeviceCon(disconEId,"未连接");
-                 }
+                     if(insocket.isClosed()){
+                         String disconEId = entry.getKey();
+                         Handler.list_socket_device.remove(entry.getKey());
+                         System.out.println(disconEId + "已断开连接");
+                         deviceService.updateDeviceCon(disconEId,"未连接");
+                     }
            System.out.println(entry.getKey() + entry.getValue());
        }
     }

@@ -98,6 +98,7 @@
         table.render({
             id: 'ConDeList',
             elem: '#ConDeList'
+            //url加时间戳解决ie浏览器缓存数据问题
             , url: 'showConDevice?timestamp='+ new Date().getTime()
             , cols: [[
                 {checkbox: true, fixed: true, width: '5%'}
@@ -151,7 +152,6 @@
             if(obj.event === 'checkstatus'){
                 start(eid); //请求发送状态数据
                 checkstatus( dname +'实时状态','/checkdevice?eid=' + eid, 700, 450 )
-
             }else if(obj.event === 'pause'){
                 pause(eid)
             }else if (obj.event === 'recover'){

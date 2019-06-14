@@ -627,6 +627,10 @@
     //     });
     // };
 
+
+    $(window).on('beforeunload',function(){
+        return '你确定要关闭页面';
+    });
     $(window).on('unload',function(){
         $.ajax({
             type: 'post',

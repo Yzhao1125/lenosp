@@ -9,11 +9,14 @@ import com.len.service.DeviceService;
 
 import com.len.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,7 +35,6 @@ public class Handler implements Runnable{
     public JSONObject jsonObject;
 
     public JSONObject authjsonObject;
-
 
 
     @Autowired
@@ -66,6 +68,7 @@ public class Handler implements Runnable{
             BufferedReader br = getReader(socket);
             PrintWriter pw = getWriter(socket);
             socketList.add(socket);
+            socket.setSoTimeout(60*1000);
             String msg = null;
             String authmsg = null;
 
@@ -78,15 +81,16 @@ public class Handler implements Runnable{
                         System.out.println("44444" + msg);
                         authjsonObject= new JSONObject();
                         authjsonObject =JSON.parseObject(msg);
-                        add_socket_device(authjsonObject.getString("EID"),socket);
                         deviceService = SpringUtil.getBean("deviceServiceImpl");
                         authmsg = deviceService.authDevice(msg);
-                        deviceService.updateDeviceIp(authjsonObject.getString("EID"), socket.getInetAddress().toString().substring(1));
                         if ("true".equals(authmsg)) {
                             pw.write("OK");
                             //pw.println("OK");
                             pw.flush();
+                            add_socket_device(authjsonObject.getString("EID"),socket);  //设备编号与socket绑定
+                            deviceService.updateDeviceIp(authjsonObject.getString("EID"), socket.getInetAddress().toString().substring(1)); //更新设备表的设备连接状态
                         } else {
+                            socket.close();
                             System.out.println("认证失败");
                         }
                     }else if(msg.startsWith("STA")){
@@ -98,27 +102,23 @@ public class Handler implements Runnable{
                         int in = deviceMService.saveDeviceState(jsonObject);
                         System.out.println("存入结果："+ in);
                     }
-                }else {
-                    socket.close();
-                    deviceService = SpringUtil.getBean("deviceServiceImpl");
 
-                    break;
+                }else{  //readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值
+                   socket.close();
                 }
-
             }
 
-        }catch (IOException e){
+        }catch (SocketTimeoutException e){
             //TODO: handle exception
             e.printStackTrace();
-        }/*finally {
-            try{
-                if(socket!=null){
-                    socket.close();
-                }
-            }catch (IOException e){
-                e.printStackTrace();
+            try {
+                socket.close();
+            }catch (IOException e2){
+                e2.printStackTrace();
             }
-        }*/
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
     }
 
     private void add_socket_device(String eid, Socket socket) {
@@ -133,7 +133,5 @@ public class Handler implements Runnable{
         }
 
     }
-
-
 
 }

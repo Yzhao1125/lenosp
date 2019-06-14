@@ -2,6 +2,8 @@ package com.len;
 
 import com.len.core.SocketThread.EchoServer;
 
+import com.len.service.DeviceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,6 +37,8 @@ import java.util.Arrays;
 @Import({Socket.class})
 public class Application {
 
+
+
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
     //  String[] names = applicationContext.getBeanDefinitionNames();
@@ -45,10 +49,8 @@ public class Application {
     }catch (IOException e){
         e.printStackTrace();
     }
+
+
     }
-
-
-
-
 
 }

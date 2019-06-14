@@ -22,6 +22,8 @@ import java.util.Locale;
  * @email 154040976@qq.com
  * spring shiro
  */
+
+
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
@@ -74,4 +76,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         resolver.setDefaultLocale(Locale.US);
         return resolver;
     }
+
+
 }

@@ -131,9 +131,9 @@
                     }
                 });
             },
-            // add: function () {  //新增设备
-            //     add('添加设备', 'showAddDevice', 700, 450);
-            // },
+            add: function () {  //新增设备
+                add('添加设备', 'showAddDevice', 700, 450);
+            }
             // update: function () {
             //     var checkStatus = table.checkStatus('deviceList')
             //         , data = checkStatus.data;
