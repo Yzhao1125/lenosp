@@ -72,6 +72,7 @@ public class Handler implements Runnable{
             String msg = null;
             String authmsg = null;
 
+            
             while(true){
                 msg = br.readLine();
                 if(msg!=null){
