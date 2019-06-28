@@ -40,6 +40,9 @@
                             <input value = "${pdevice.deviceid}" id="deviceid" name="deviceid"  lay-verify="deviceid"
                                    autocomplete="off" class="layui-input">
                         </div>
+                        <div id="ms" class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span><span id="ums">不可修改</span>
+                        </div>
                     </div>
                  </div>
                 </div>

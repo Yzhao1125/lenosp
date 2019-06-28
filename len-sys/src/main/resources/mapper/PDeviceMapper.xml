@@ -42,7 +42,6 @@
       where pu.userid=#{userId}
     </if>
 
-
   </select>
 
   <select id="selectListByPage2" parameterType="com.len.entity.PDevice" resultMap="BaseResultMap">
@@ -66,4 +65,15 @@
   <update id="updateIp" parameterType="com.len.entity.PDevice">
     update p_device set IP=#{inetAddress,jdbcType=VARCHAR} where deviceId =#{eid,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deletebydeviceId" parameterType="java.lang.String">
+    delete from p_device where deviceId=#{eid}
+  </delete>
+
+  <select id="getConnects" parameterType="java.util.List" resultMap="BaseResultMap">
+    select * from p_device
+     where deviceId in <foreach collection="list" item="item" index="index"
+                                                    open="(" separator="," close=")">#{item}</foreach>
+
+  </select>
 </mapper>

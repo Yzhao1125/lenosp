@@ -19,10 +19,27 @@
     <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js"
             charset="utf-8"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
-
+    <script type="text/javascript" src="${re.contextPath}/plugin/websocket/sockjs.min.js"></script>
+    <script type="text/javascript" src="${re.contextPath}/plugin/websocket/stomp.min.js"></script>
+<style>
+    .d-right{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 50%;
+    }
+    .right-body{
+        margin: 20px 100px 0 100px;
+    }
+    .layui-timeline-title{
+        font-size: 15px;
+    }
+</style>
 </head>
 
 <body>
+<#--<div style="width: 50%;border-right: 1px solid gray">-->
 <div class="lenos-search">
     <div class="select">
         设备名称
@@ -61,8 +78,53 @@
             </button>
         </@shiro.hasPermission>-->
     </div>
-</div>
+<#--</div>-->
 <table id="deviceList" class="layui-hide" lay-filter="device"></table>
+</div>
+<#--<div class="d-right">-->
+    <#--<div id="right-body" class="right-body">-->
+    <#--<ul class="layui-timeline">-->
+        <#--<li class="layui-timeline-item">-->
+            <#--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
+            <#--<div class="layui-timeline-content layui-text">-->
+                <#--<div class="layui-timeline-title">-->
+                <#--<span>设备名称：设备1</span>-->
+                    <#--<span>状态：<font color="#7fff00">已连接</font></span>-->
+            <#--</div>-->
+            <#--</div>-->
+        <#--</li>-->
+        <#--<li class="layui-timeline-item">-->
+            <#--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
+            <#--<div class="layui-timeline-content layui-text">-->
+                <#--<div class="layui-timeline-title">-->
+                    <#--<span>设备名称：设备1</span>-->
+                    <#--<span>状态：<font color="#7fff00">已连接</font></span>-->
+                <#--</div>-->
+            <#--</div>-->
+        <#--</li>-->
+        <#--<li class="layui-timeline-item">-->
+            <#--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
+            <#--<div class="layui-timeline-content layui-text">-->
+                <#--<div class="layui-timeline-title">-->
+                    <#--<span>设备名称：设备1</span>-->
+                    <#--<span>状态：<font color="#7fff00">已连接</font></span>-->
+                <#--</div>-->
+
+            <#--</div>-->
+        <#--</li>-->
+        <#--<li class="layui-timeline-item">-->
+            <#--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
+            <#--<div class="layui-timeline-content layui-text">-->
+                <#--<div class="layui-timeline-title">-->
+                    <#--<span>设备名称：设备1</span>-->
+                    <#--<span>状态：<font color="#7fff00">已连接</font></span>-->
+                <#--</div>-->
+            <#--</div>-->
+        <#--</li>-->
+    <#--</ul>-->
+    <#--</div>-->
+
+<#--</div>-->
 <script type="text/html" id="barDemo">
     <#--<@shiro.hasPermission name="device:select">-->
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -84,11 +146,34 @@
         if (code == 13) {
             $(".select .select-on").click();
         }
-    }
-    layui.use('table', function () {
-        var table = layui.table;
+    };
+
+    $(function(){
+       if(typeof (WebSocket)== "undefined" ){
+           console.log("您的浏览器不支持WebSocket");
+       } else{
+           console.log("您的浏览器支持WebSocket");
+           socket = new WebSocket("ws:localhost:8092/websocket");
+           socket.onopen = function () {
+               console.log("websocket已打开");
+           };
+           socket.onmessage=function(res){
+
+           }
+       }
+    });
+
+    var tableIns;
+    var curdata = new Array();
+    var deviceids = [];
+    layui.use(['table','laypage','element'], function () {
+        var table = layui.table
+            ,laypage = layui.laypage
+            ,$ = layui.$
+            ,element = layui.element;
+        var tabledata='';
         //方法级渲染
-        table.render({
+          tableIns= table.render({
             id: 'deviceList',
             elem: '#deviceList'
             , url: '/showDeviceList?timestamp=' + new Date().getTime()
@@ -108,8 +193,30 @@
                 , {field: 'right', title: '操作', width: '26%', toolbar: "#barDemo"}
             ]]
             , page: true,
-            height: 'full-83'
-        });
+            height: 'full-83',
+              done: function(res, curr, count){
+               // console.log(res);
+                curdata = res.data; //获取当前页的数据
+                if(deviceids!=null){
+                    deviceids =[];
+                }
+                for (i=0;i<curdata.length;i++){
+                    var eid = curdata[i].deviceid;
+                 //   console.log(eid);
+                    deviceids.push(eid);
+                }
+
+                //console.log ("sss"+ deviceids);
+                //console.log(curdata);
+
+
+
+              }
+       });
+
+        // curdata = tableIns.cache['deviceList'];
+        //curdata = tableIns.getTable().cache.table;
+
 
         var $ = layui.$, active = {  //根据检索条件，刷新设备表格
             select: function () {
@@ -121,9 +228,8 @@
                     }
                 });
             },
-            reload:function(){
+            reload: function(){
                 var dname = $('#dname').val();
-                $('#dname').val('');
                 table.reload('deviceList', {
                     where: {
                         dname: dname,
@@ -131,37 +237,14 @@
                     }
                 });
             },
+
             add: function () {  //新增设备
                 add('添加设备', 'showAddDevice', 700, 450);
             }
-            // update: function () {
-            //     var checkStatus = table.checkStatus('deviceList')
-            //         , data = checkStatus.data;
-            //     if (data.length != 1) {
-            //         layer.msg('请选择一行编辑,已选['+data.length+']行', {icon: 5});
-            //         return false;
-            //     }
-            //     update('编辑设备', 'updateDevice?id=' + data[0].id, 700, 450);
-            // },
-            // detail: function () {
-            //     var checkStatus = table.checkStatus('deviceList')
-            //         , data = checkStatus.data;
-            //     if (data.length != 1) {
-            //         layer.msg('请选择一行查看,已选['+data.length+']行', {icon: 5});
-            //         return false;
-            //     }
-            //     detail('查看设备信息', 'updateDevice?id=' + data[0].id, 700, 450);
-            // },
-           /* changePwd:function(){
-                var checkStatus = table.checkStatus('deviceList')
-                    , data = checkStatus.data;
-                if (data.length != 1) {
-                    layer.msg('请选择一个用户,已选['+data.length+']行', {icon: 5});
-                    return false;
-                }
-                rePwd('修改密码','goRePass?id='+data[0].id,500,350);
-            }*/
+
+
         };
+        // $(".layui-laypage-btn")[0].click();
 
         //监听表格复选框选择
         table.on('checkbox(device)', function (obj) {
@@ -171,19 +254,21 @@
         table.on('tool(device)', function (obj) {
             var data = obj.data;
             var eid = data.deviceid;
-            console.log("ssssssssssss"+eid);
+         //   console.log("ssssssssssss"+eid);
             if (obj.event === 'detail') {
                 detail('查看设备', 'updateDevice?eid=' + eid, 700, 450);
             } else if (obj.event === 'del') {
                 layer.confirm('确定删除设备[<label style="color: #00AA91;">' + data.dname + '</label>]?', {
-                    btn: ['逻辑删除', '物理删除']
+                    btn: ['确定', '取消']
                 }, function () {
-                    toolDelByFlag(data.id,'deviceList',true);
+                    toolDelByFlag2(eid,'deviceList',true);
+                    console.log(eid);
+
                 }, function () {
-                    toolDelByFlag(data.id,'deviceList',false);
+                    layer.close();
                 });
             } else if (obj.event === 'edit') {
-                update('编辑设备', 'updateDevice?id=' + data.id, 700, 450);
+                update('编辑设备', 'updateDevice?eid=' + eid, 700, 450);
             }
         });
 
@@ -196,32 +281,88 @@
             active[type] ? active[type].call(this) : '';
         });
 
+
+
+       //  setInterval(function(){
+       //      var data=[];
+       //      for(var i=0;i<10;i++){
+       //          data.push({
+       //              code:i,
+       //              name:'设备'+i,
+       //              status:i%2===0?0:1
+       //          });
+       //      }
+       //      var htm= ``;
+       //          for (var item in data){
+       //          console.log(data[item].name);
+       //          var status=data[item].status===0?'已连接':'未连接';
+       //          var color=data[item].status===0?'green':'red';
+       //          htm+='<li class="layui-timeline-item">'+
+       //      '<i class="layui-icon layui-timeline-axis">&#xe63f;</i>'+
+       //      '<div class="layui-timeline-content layui-text">'+
+       //          '<div class="layui-timeline-title">'+
+       //          '<span>'+data[item].name+'</span>'+
+       //              '<span>状态：<font>'+status+'</font></span>'+
+       //              '</div>'+
+       //      '</div>'+
+       //  '</li>';
+       //      }
+       //      console.log(htm);
+       //      var ul=$('.layui-timeline');
+       //      ul.html(htm);
+       //  }, 3000);
+        setInterval(func, 10000);
     });
-  /*  function rePwd(title,url,w,h){
-        if (title == null || title == '') {
-            title = false;
-        };
-        if (url == null || url == '') {
-            url = "404.html";
-        };
-        if (w == null || w == '') {
-            w = ($(window).width() * 0.9);
-        };
-        if (h == null || h == '') {
-            h = ($(window).height() - 50);
-        };
-        layer.open({
-            id: 'user-rePwd',
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false,
-            maxmin: true,
-            shadeClose: true,
-            shade: 0.4,
-            title: title,
-            content: url,
-        });
-    }*/
+
+
+
+  function func() {
+          var cr = tableIns.config.page.curr;
+          var connect = $('#connect').val();
+          var data1 = [];
+
+      $.ajax({
+          url: "/getDeviceConnect",
+          type: "post",
+          data: {"deviceids": deviceids},
+          dataType: "json",
+          cache: false,
+          async: false,
+          success: function(data) {
+             // console.log(data);
+              data1 = data;
+              var trArr = [];
+              var connect =[];
+              for (var j = 0; j < data1.length; j++) {
+                  var data2 = data1[j];
+                  connect.push(data2.connect);
+                  console.log("后台数据：");
+                  console.log(data2);
+              }
+
+              //console.log(tableId);
+              var trArr = $(".layui-table-body.layui-table-main tr"); //行数据
+            //  console.log(trArr);
+              for (var i = 0; i < trArr.length; i++) {
+                  $(trArr[i]).find("td").each(function(){
+                      if ($(this).attr("data-field") == "connect"){
+                        //  console.log("前端数据");
+                        //  console.log($(this).text());
+
+                          $(this).children(":first").text(connect[i]);
+
+                        //  console.log("修改后的数据");
+                         // console.log($(this).text());
+                      }
+                  })
+
+              }
+
+          }
+          })
+      }
+
+
     function detail(title, url, w, h) {
         if (title == null || title == '') {
             title = false;
@@ -274,6 +415,28 @@
             shade: 0.4,
             title: title,
             content: url + '&detail=false'
+        });
+    }
+
+    function toolDelByFlag2(eid,list, flag) {
+        var data={deviceid:eid};
+        if(flag!=null){
+            data.flag=flag;
+        }
+        $.ajax({
+            url:'/deldevice?eid='+ eid,
+            type:'post',
+            data:data,
+            success:function(d){
+                if(d.flag){
+                    window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
+                    layui.table.reload(list);
+                }else{
+                    window.top.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+                }
+            },error:function(){
+                alert('error');
+            }
         });
     }
 

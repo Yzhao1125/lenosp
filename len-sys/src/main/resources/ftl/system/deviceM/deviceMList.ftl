@@ -79,7 +79,6 @@
     </div>
 </div>
 
-
 <table id="ConDeList" class="layui-hide" lay-filter="Device"></table>
 <script type="text/html" id="tools">
     <a class="layui-btn layui-btn-xs" lay-event="checkstatus"  >实时状态查看</a>
@@ -94,6 +93,8 @@
     // 执行一个 table 实例
     layui.use('table', function () {
         var table = layui.table;
+        var $ = layui.$;
+        var datass = '';
         //方法级渲染
         table.render({
             id: 'ConDeList',
@@ -141,7 +142,6 @@
                 });
             },
         };
-
 
         table.on('tool(Device)',function (obj){
             var data = obj.data;

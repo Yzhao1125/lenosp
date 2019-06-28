@@ -52,11 +52,11 @@ public class DeviceMController {
 
 
 
-
     @RequestMapping(value = "/showConDevice")
     @ResponseBody
     public ReType showDeviceList(PDevice pDevice, String page, String limit){
 
+        System.out.println("sssssssssssssss");
         ReType reType = deviceService.showCon(pDevice,Integer.valueOf(page),Integer.valueOf(limit));
         return reType;
     }
@@ -137,7 +137,6 @@ public class DeviceMController {
                 printWriter.print("STOP");
                 printWriter.flush();
                 System.out.println("发送成功");
-                Handler.connectflag = false;
             } catch (IOException e) {
                 System.out.println("发送数据异常");
                 e.printStackTrace();

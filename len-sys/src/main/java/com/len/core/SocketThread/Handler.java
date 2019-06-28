@@ -72,7 +72,7 @@ public class Handler implements Runnable{
             String msg = null;
             String authmsg = null;
 
-            
+
             while(true){
                 msg = br.readLine();
                 if(msg!=null){
@@ -86,7 +86,6 @@ public class Handler implements Runnable{
                         authmsg = deviceService.authDevice(msg);
                         if ("true".equals(authmsg)) {
                             pw.write("OK");
-                            //pw.println("OK");
                             pw.flush();
                             add_socket_device(authjsonObject.getString("EID"),socket);  //设备编号与socket绑定
                             deviceService.updateDeviceIp(authjsonObject.getString("EID"), socket.getInetAddress().toString().substring(1)); //更新设备表的设备连接状态

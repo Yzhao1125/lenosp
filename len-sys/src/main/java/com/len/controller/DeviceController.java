@@ -1,12 +1,11 @@
 package com.len.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.len.base.CurrentRole;
 import com.len.base.CurrentUser;
-import com.len.base.Principal;
 import com.len.core.RanGenerator.Generator;
-import com.len.core.SocketThread.Handler;
-import com.len.core.shiro.ShiroUtil;
+import com.len.core.websocket.WebSocketServer;
 import com.len.entity.PDeviceS;
 
 
@@ -17,24 +16,24 @@ import com.len.service.DeviceService;
 import com.len.entity.PDevice;
 import com.len.service.PUserDeviceService;
 import com.len.service.SysUserService;
-import com.len.util.Checkbox;
 import com.len.util.CommonUtil;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * created by Yuan
@@ -81,6 +80,8 @@ public class DeviceController {
     @GetMapping(value = "/showDeviceList")
     @ResponseBody
     public ReType showDeviceList(PDevice pDevice, String page, String limit){
+
+        System.out.println("22222222222222");
         CurrentUser user = CommonUtil.getUser();
         List<CurrentRole> currentRoleList = user.getCurrentRoleList();
         long count = currentRoleList.stream().filter(s -> adminRole.equals(s.getRoleName())).count();
@@ -88,6 +89,22 @@ public class DeviceController {
             pDevice.setUserId(user.getId());
         return deviceService.show(pDevice, Integer.valueOf(page), Integer.valueOf(limit));
     }
+
+    @PostMapping(value = "/getDeviceConnect")
+    @ResponseBody
+    public List<JSONObject> getDeviceConnect(@RequestParam(value = "deviceids[]") List<String> deviceids){
+
+        List<HashMap<String, String>> maplist = deviceService.getDeviceConnect(deviceids);
+        List<JSONObject> list = new ArrayList<>();
+        for(HashMap<String,String> map:maplist){
+            JSONObject object=JSONObject.parseObject(JSON.toJSONString(map));
+            list.add(object);
+            System.out.println(object.toJSONString());
+        }
+
+        return list;
+    }
+
 
     @RequestMapping(value="/addDevice")
     @ResponseBody
@@ -140,18 +157,18 @@ public class DeviceController {
     }
 
 
-    @GetMapping(value = "updateDevice")
-    public String goUpdateUser(String eid, Model model, boolean detail) {
+    @GetMapping(value = "/updateDevice")
+    public String goUpdateDevice(String eid, Model model, boolean detail) {
         System.out.println("0000000000000"+eid);
         if (StringUtils.isNotEmpty(eid)) {
 
             PDevice pDevice = deviceService.selectDevicebyeid(eid);
             System.out.println("1111111111"+pDevice.getDname());
+
             String uid = pUserDeviceService.getuidbyeid(eid);
             System.out.println("22222222"+uid);
             SysUser user = userService.selectByPrimaryKey(uid);
             System.out.println("333333"+user.getUsername());
-
             model.addAttribute("pdevice", pDevice);
             model.addAttribute("user",user);
          //   model.addAttribute("boxJson", checkboxList);
@@ -159,5 +176,36 @@ public class DeviceController {
         model.addAttribute("detail", detail);
         return "system/device/update-device";
     }
+
+    @ResponseBody
+    @PostMapping(value = "/updateDevice")
+    public JsonUtil updateDevice(PDeviceS pDeviceS){
+        JsonUtil util = new JsonUtil();
+        util.setFlag(false);
+        if(pDeviceS==null){
+
+        }
+        return util;
+    }
+
+
+    @PostMapping(value = "/deldevice")
+    @ResponseBody
+    public JsonUtil delDevice(String eid, boolean flag) {
+      return deviceService.deletebydeviceId(eid,flag);
+    }
+
+
+    @RequestMapping(value = "/pushMsgToHtml", method = RequestMethod.GET)
+    @ResponseBody
+    public String pushMsgToHtml() throws IOException {
+
+//        CopyOnWriteArraySet<WebSocketServer> webSocketSet = WebSocketServer.webSocketSet;
+//        for (WebSocketServer webSocketServer : webSocketSet) {
+//        webSocketServer.sendMessage("你好客户端.....我是服务端");
+//    }
+
+        return "200";
+}
 
 }

@@ -1,7 +1,9 @@
 package com.len.mapper;
 
+import com.alibaba.fastjson.JSONObject;
 import com.len.base.BaseMapper;
 import com.len.entity.PDevice;
+import com.len.util.JsonUtil;
 
 import java.util.List;
 
@@ -28,4 +30,10 @@ public interface PDeviceMapper extends BaseMapper<PDevice,String> {
     void updateIp(String eid, String inetAddress);
 
     PDevice selectbyeid(String eid);
+
+    int deletebydeviceId(String eid);
+
+    List<PDevice> getConnects(List<String> deviceids);
+
+    //  List<PDevice> getdeviceConnect();
 }

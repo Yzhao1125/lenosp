@@ -52,34 +52,37 @@ public class DeviceLController {
             String dname=pDevice.getDname();
    //         System.out.println("IP的名称：" + dname);
             String IP=pDevice.getIp();
-            System.out.println("数据库的IP:" + IP);
-            String deviceID=pDevice.getDeviceid();
-            String address = deviceLocation.getAddress("ip=" + IP, "utf-8");
+            if(IP!=null && !"".equals(IP.trim())){
+                System.out.println("数据库的IP:" + IP);
+                String deviceID=pDevice.getDeviceid();
+                String address = deviceLocation.getAddress("ip=" + IP, "utf-8");
 //
-            if (address!= null){
+                if (address!= null){
 
-                StringBuilder a = new StringBuilder(address);
-                int index1 = a.indexOf("}");
-                a.insert(index1,",\"dname\":\"");
-                int index2 = a.indexOf("}");
-                a.insert(index2,dname);
-                int index3 = a.indexOf("}");
-                a.insert(index3,"\"");
-                String ipstring = ""+a;
-                //        System.out.println("ceshi:" + ipstring);
+                    StringBuilder a = new StringBuilder(address);
+                    int index1 = a.indexOf("}");
+                    a.insert(index1,",\"dname\":\"");
+                    int index2 = a.indexOf("}");
+                    a.insert(index2,dname);
+                    int index3 = a.indexOf("}");
+                    a.insert(index3,"\"");
+                    String ipstring = ""+a;
+                    //        System.out.println("ceshi:" + ipstring);
 
-                StringBuilder b=new StringBuilder(ipstring);
-                int index4 = b.indexOf("}");
-                b.insert(index4,",\"deviceid\":\"");
-                int index5 = b.indexOf("}");
-                b.insert(index5,deviceID);
-                int index6 = b.indexOf("}");
-                b.insert(index6,"\"");
-                String newstring=""+b;
-                //          System.out.println("ceshi2:" + newstring);
-                addressList.add(newstring);
+                    StringBuilder b=new StringBuilder(ipstring);
+                    int index4 = b.indexOf("}");
+                    b.insert(index4,",\"deviceid\":\"");
+                    int index5 = b.indexOf("}");
+                    b.insert(index5,deviceID);
+                    int index6 = b.indexOf("}");
+                    b.insert(index6,"\"");
+                    String newstring=""+b;
+                    //          System.out.println("ceshi2:" + newstring);
+                    addressList.add(newstring);
 
+                }
             }
+
 
     }
         return addressList;

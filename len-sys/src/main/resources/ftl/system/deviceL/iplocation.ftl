@@ -87,10 +87,16 @@
     ];*/
 
     var map;  //Map实例
+    var local;
     function map_init(){
          map = new BMap.Map("map"); // 创建Map实例
         map.centerAndZoom(new BMap.Point(105.403119, 38.028658), 5);  // 初始化地图,设置中心点坐标和地图级别
         map.enableScrollWheelZoom(true); // 开启鼠标滚轮缩放
+         local = new BMap.LocalSearch(map,{
+            onSearchComplete:myFun
+        });
+
+        local.search("您要搜索的地址")
    /*     map.setMapStyle({
             style: 'light'
         });
@@ -140,6 +146,29 @@
         var marker = new BMap.Marker(point, { icon: myIcon });
         map.addOverlay(marker);
         return marker;
+    }
+
+    function myFun(){
+        var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+        map.centerAndZoom(pp,15); //设置地图显示中间点、地图显示级别
+        console.log(pp.lat,pp.lng)
+        var point = new BMap.Point(pp.lng,pp.lat);
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.centerAndZoom(point, 15);
+        var opts = {
+            width : 200,     // 信息窗口宽度
+            height: 80,     // 信息窗口高度
+            title : "xxxx公司" , // 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:""
+        }
+        var infoWindow = new BMap.InfoWindow("地址：XXXXXXX", opts);  // 创建信息窗口对象
+
+        //点击按钮弹出信息窗口
+        marker.addEventListener("click", function(){
+            map.openInfoWindow(infoWindow,point); //开启信息窗口
+        });
     }
 
     //添加信息窗口
