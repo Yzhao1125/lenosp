@@ -30,7 +30,7 @@ background-attachment: fixed;">
 
 </div>
 
-<div class="login" style="position: absolute;right: 150px;">
+<div class="login" style="margin-top:50px; height=450px; position:absolute; right: 150px;"><#--<div class="login" style="position: absolute;right: 150px;">-->
     <div class="message" style="background-color:pink; color:black">用户注册</div>
     <div id="darkbannerwrap"></div>
     <form class="layui-form" method="post" action="/register" >
@@ -55,7 +55,7 @@ background-attachment: fixed;">
             注册
         </button>
     </form>
-    <label class="layui-form-label" style="width:160px;padding: 0px 22px 0px 180px;font-style: italic;margin-top:15px"><a href="/login" style="font-size:13px">已有账号？直接登录</a></label>
+    <label class="layui-form-label" style="width:180px;padding: 0px 22px 0px 100px;font-style: italic;margin-top:15px"><a href="/login" style="font-size:13px">已有账号？直接登录</a></label>
 </div>
 <script>
    var layer;
@@ -128,8 +128,7 @@ background-attachment: fixed;">
 </script>
 <!-- 底部结束 -->
 </body>
-</html>
-<div class="layui-footer"  style="height: 40px;width: 100%;position: absolute;top:95%;left: 3%;">
+<div class="layui-footer"  style="height: 40px;width: 100%;position: absolute;top:95%;left:3%;">
     <!-- 底部固定区域 -->
     2019 &copy;
     <div style="color: white"><a target="_blank" href="http://www.joye3d.com/" style="color: white;">湖北嘉一三维高科股份有限公司</a> <#--技术交流请联系本人-154040976@qq.com-->
@@ -139,3 +138,4 @@ background-attachment: fixed;">
         &emsp;&emsp;&emsp;总部地址：湖北省武汉市武昌区徐东大街338号纺织大厦
         &emsp;&emsp;&emsp;生产基地：湖北省赤壁市赤马港嘉一科技园</div>
 </div>
+</html>
