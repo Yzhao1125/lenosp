@@ -90,6 +90,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
 
     @Override
     public void updateDevice(PDevice pDevice) {
+        System.out.println("进入service层");
         deviceMapper.updateDevice(pDevice);
     }
 

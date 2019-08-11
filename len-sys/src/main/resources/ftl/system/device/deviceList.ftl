@@ -260,7 +260,7 @@
             } else if (obj.event === 'del') {
                 layer.confirm('确定删除设备[<label style="color: #00AA91;">' + data.dname + '</label>]?', {
                     btn: ['确定', '取消']
-                }, function (index) {
+                }, function (index) {  //layer中的第一个按钮使用layer.close(),需要给index才能关闭layer
                     toolDelByFlag2(eid,'deviceList',true);
                     layer.close(index);
                     console.log(eid);
@@ -268,7 +268,7 @@
                     layer.close();
                 });
             } else if (obj.event === 'edit') {
-                update('修改设备信息', 'updateDevice?eid=' + eid, 700, 450);
+                update('修改设备信息', 'updateDevice?eid=' + eid, 600, 350);
             }
         });
 
@@ -414,7 +414,8 @@
             shadeClose: false,
             shade: 0.4,
             title: title,
-            content: url + '&detail=false'
+            // content: url + '&detail=false'
+            content: url
         });
     }
 

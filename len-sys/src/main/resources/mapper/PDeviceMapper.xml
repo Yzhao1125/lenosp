@@ -77,6 +77,6 @@
   </select>
 
   <update id="updateDevice" parameterType="com.len.entity.PDevice">
-    update p_device set dname=#{dname}, devicePW=#{devicePW} where deviceId=#{eid}
+    update p_device set dname=#{dname}, devicePW=#{devicepw} where deviceId=#{deviceid}
   </update>
 </mapper>

@@ -39,7 +39,7 @@
                                 <span class="x-red">*</span>新密码
                             </label>
                             <div class="layui-input-inline">
-                            <input type="password" id="newpw" name="newpw" lay-verify="newpw"
+                            <input type="password" id="devicePw" name="devicePw" lay-verify="devicePw"
                                    autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -64,43 +64,43 @@
 </body>
 <script>
     var flag,msg;
-    $(function(){
-        var name='${pdevice.dname}';
-        if($('#dname').val()==name)
-            flag=true;
-        $('#dname').on("blur",function(){
-            var uname=$('#dname').val();
-            if(uname.match(/[\u4e00-\u9fa5]/)){
-                return;
-            }
-            if(!/(.+){3,12}$/.test(uname)){
-                return;
-            }
-            if(uname!=''&&uname!=name) {
-                $.ajax({
-                    url: 'checkUser?uname=' + uname, async: false, type: 'get', success: function (data) {
-                        console.info(!data.flag);
-                        flag = data.flag;
-                        $('#ms').find('span').remove();
-                        if (!data.flag) {
-                            msg = data.msg;
-                            $('#ms').append("<span style='color: red;'>"+data.msg+"</span>");
-                            // layer.msg(msg,{icon: 5,anim: 6});
-                        }else{
-                            flag=true;
-                            $('#ms').append("<span style='color: green;'>用户名可用</span>");
-                        }
-                    },beforeSend:function(){
-                        $('#ms').find('span').remove();
-                        $('#ms').append("<span>验证ing</span>");
-                    }
-                });
-            }else{
-                flag=true;
-            }
-        });
+    <#--$(function(){-->
+        <#--var name='${pdevice.dname}';-->
+        <#--if($('#dname').val()==name)-->
+            <#--flag=true;-->
+        <#--$('#dname').on("blur",function(){-->
+            <#--var uname=$('#dname').val();-->
+            <#--if(uname.match(/[\u4e00-\u9fa5]/)){-->
+                <#--return;-->
+            <#--}-->
+            <#--if(!/(.+){3,12}$/.test(uname)){-->
+                <#--return;-->
+            <#--}-->
+            <#--if(uname!=''&&uname!=name) {-->
+                <#--$.ajax({-->
+                    <#--url: 'checkUser?uname=' + uname, async: false, type: 'get', success: function (data) {-->
+                        <#--console.info(!data.flag);-->
+                        <#--flag = data.flag;-->
+                        <#--$('#ms').find('span').remove();-->
+                        <#--if (!data.flag) {-->
+                            <#--msg = data.msg;-->
+                            <#--$('#ms').append("<span style='color: red;'>"+data.msg+"</span>");-->
+                            <#--// layer.msg(msg,{icon: 5,anim: 6});-->
+                        <#--}else{-->
+                            <#--flag=true;-->
+                            <#--$('#ms').append("<span style='color: green;'>用户名可用</span>");-->
+                        <#--}-->
+                    <#--},beforeSend:function(){-->
+                        <#--$('#ms').find('span').remove();-->
+                        <#--$('#ms').append("<span>验证ing</span>");-->
+                    <#--}-->
+                <#--});-->
+            <#--}else{-->
+                <#--flag=true;-->
+            <#--}-->
+        <#--});-->
 
-    });
+    <#--});-->
 
 
     layui.use(['form','layer'], function(){
@@ -154,7 +154,7 @@
             // }
             // data.field.role=role;
 
-            layerAjax('updateDevice', data.field, 'deviceList');
+            layerAjax('updateDeviceinfo', data.field, 'deviceList');
             return false;
         });
         form.render();
