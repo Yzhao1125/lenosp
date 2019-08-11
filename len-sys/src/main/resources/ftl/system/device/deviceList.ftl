@@ -3,7 +3,7 @@
  Date: 2017/12/6
  Time: 14:00
  To change this template use File | Settings | File Templates.
- 用户管理-->
+ 设备管理-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,10 +47,10 @@
             <input class="layui-input" height="20px" id="dname" autocomplete="off">
         </div>
 
-        <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
+        <button class="select-on layui-btn layui-btn-sm" data-type="select" style="background-color:deepskyblue"><i class="layui-icon"></i>
         </button>
-        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
-                data-type="reload">
+        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right; background-color:deepskyblue"
+                data-type="reload" >
             <i class="layui-icon">ဂ</i>
         </button>
     </div>
@@ -58,8 +58,8 @@
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
     <div class="layui-btn-group">
    <#--     <@shiro.hasPermission name="device:select">-->
-            <button class="layui-btn layui-btn-normal" data-type="add">
-                <i class="layui-icon">&#xe608;</i>新增
+            <button class="layui-btn layui-btn-normal" data-type="add"  style="background-color: deepskyblue">
+                <i class="layui-icon" >&#xe608;</i>新增
             </button>
        <#-- </@shiro.hasPermission>-->
      <#--   <@shiro.hasPermission name="device:select">-->
@@ -127,13 +127,13 @@
 <#--</div>-->
 <script type="text/html" id="barDemo">
     <#--<@shiro.hasPermission name="device:select">-->
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
   <#--  </@shiro.hasPermission>-->
   <#--  <@shiro.hasPermission name="device:update">-->
-        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit" style="background-color:deepskyblue">修改</a>
 <#--    </@shiro.hasPermission>-->
 <#--    <@shiro.hasPermission name="device:del">-->
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
 <#--    </@shiro.hasPermission>-->
 </script>
 <#--<script type="text/html" id="switchTpl">
@@ -256,19 +256,19 @@
             var eid = data.deviceid;
          //   console.log("ssssssssssss"+eid);
             if (obj.event === 'detail') {
-                detail('查看设备', 'updateDevice?eid=' + eid, 700, 450);
+                detail('查看设备', 'checkDevice?eid=' + eid, 700, 450);
             } else if (obj.event === 'del') {
                 layer.confirm('确定删除设备[<label style="color: #00AA91;">' + data.dname + '</label>]?', {
                     btn: ['确定', '取消']
-                }, function () {
+                }, function (index) {
                     toolDelByFlag2(eid,'deviceList',true);
+                    layer.close(index);
                     console.log(eid);
-
                 }, function () {
                     layer.close();
                 });
             } else if (obj.event === 'edit') {
-                update('编辑设备', 'updateDevice?eid=' + eid, 700, 450);
+                update('修改设备信息', 'updateDevice?eid=' + eid, 700, 450);
             }
         });
 
@@ -362,7 +362,7 @@
           })
       }
 
-
+    //查看设备信息
     function detail(title, url, w, h) {
         if (title == null || title == '') {
             title = false;
@@ -418,6 +418,8 @@
         });
     }
 
+
+
     function toolDelByFlag2(eid,list, flag) {
         var data={deviceid:eid};
         if(flag!=null){
@@ -431,8 +433,10 @@
                 if(d.flag){
                     window.top.layer.msg(d.msg,{icon:6,offset: 'rb',area:['120px','80px'],anim:2});
                     layui.table.reload(list);
+
                 }else{
                     window.top.layer.msg(d.msg,{icon:5,offset: 'rb',area:['120px','80px'],anim:2});
+
                 }
             },error:function(){
                 alert('error');

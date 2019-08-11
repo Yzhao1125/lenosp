@@ -10,6 +10,7 @@ import com.len.base.CurrentUser;
 import com.len.base.impl.BaseServiceImpl;
 import com.len.entity.PDevice;
 
+import com.len.entity.PDeviceS;
 import com.len.exception.MyException;
 import com.len.mapper.PDeviceMapper;
 import com.len.service.DeviceService;
@@ -85,6 +86,11 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
     @Override
     public void updateDeviceCon(String eid, String conStatue) {
            deviceMapper.updateCon(eid,conStatue);
+    }
+
+    @Override
+    public void updateDevice(PDevice pDevice) {
+        deviceMapper.updateDevice(pDevice);
     }
 
     @Override

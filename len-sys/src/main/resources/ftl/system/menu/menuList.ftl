@@ -16,13 +16,13 @@
 <div  class="layui-col-md13">
     <div class="layui-btn-group">
       <@shiro.hasPermission name="nemu:add">
-        <button class="layui-btn layui-btn-normal" data-type="add">
-            <i class="layui-icon">&#xe608;</i>新增
+        <button class="layui-btn layui-btn-normal" data-type="add" style="background-color: deepskyblue">
+            <i class="layui-icon" >&#xe608;</i>新增
         </button>
       </@shiro.hasPermission>
     </div>
-    <button class="layui-btn layui-btn-sm icon-position-no-button" id="refresh" style="float: right;" onclick="javascript:location.replace(location.href);">
-      <i class="layui-icon i-icon" style="font-size: 21px">ဂ</i>
+    <button class="layui-btn layui-btn-sm icon-position-no-button" id="refresh" style="float: right; background-color: deepskyblue" onclick="javascript:location.replace(location.href);">
+      <i class="layui-icon i-icon" style="font-size: 21px" >ဂ</i>
     </button>
   </div>
 <div id="menuTree"></div>
@@ -76,7 +76,7 @@
       render: function(row) {
         var chil_len=row.children.length;
         var str= '<a class="layui-btn layui-btn-primary layui-btn-xs" onclick="select(\'' + row.id + '\')"><i class="layui-icon">&#xe615;</i> 查看</a>' +
-            '<a class="layui-btn layui-btn-xs  layui-btn-normal" onclick="update(\'' + row.id + '\')"><i class="layui-icon">&#xe642;</i> 编辑</a>'; //列渲染
+            '<a class="layui-btn layui-btn-xs  layui-btn-normal" onclick="update(\'' + row.id + '\')" style="background-color: deepskyblue"><i class="layui-icon"  >&#xe642;</i> 编辑</a>'; //列渲染
         if(chil_len==0){
           str+='<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="del(\'' + row.id + '\')"><i class="layui-icon">&#xe640;</i> 删除</a>';
         }

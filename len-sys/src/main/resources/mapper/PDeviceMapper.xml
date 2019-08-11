@@ -74,6 +74,9 @@
     select * from p_device
      where deviceId in <foreach collection="list" item="item" index="index"
                                                     open="(" separator="," close=")">#{item}</foreach>
-
   </select>
+
+  <update id="updateDevice" parameterType="com.len.entity.PDevice">
+    update p_device set dname=#{dname}, devicePW=#{devicePW} where deviceId=#{eid}
+  </update>
 </mapper>

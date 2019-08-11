@@ -157,36 +157,63 @@ public class DeviceController {
     }
 
 
-    @GetMapping(value = "/updateDevice")
-    public String goUpdateDevice(String eid, Model model, boolean detail) {
-        System.out.println("0000000000000"+eid);
+    @GetMapping(value = "/checkDevice")
+    public String checkDevice(String eid, Model model, boolean detail) {
         if (StringUtils.isNotEmpty(eid)) {
-
             PDevice pDevice = deviceService.selectDevicebyeid(eid);
-            System.out.println("1111111111"+pDevice.getDname());
-
             String uid = pUserDeviceService.getuidbyeid(eid);
-            System.out.println("22222222"+uid);
             SysUser user = userService.selectByPrimaryKey(uid);
-            System.out.println("333333"+user.getUsername());
             model.addAttribute("pdevice", pDevice);
             model.addAttribute("user",user);
-         //   model.addAttribute("boxJson", checkboxList);
         }
         model.addAttribute("detail", detail);
+        return "system/device/check-device";
+    }
+
+    @GetMapping(value = "/updateDevice")
+    public String goupdateDevice(String eid, PDeviceS pDeviceS) {
+        if (StringUtils.isNotEmpty(eid)) {
+            System.out.println("选择的设备编号"+eid);
+            System.out.println("修改的信息:"+pDeviceS.getDevicePw()+pDeviceS.getDname());
+            PDevice pDevice = deviceService.selectDevicebyeid(eid);
+            if(pDeviceS==null){
+                try {
+                    pDevice.setDevicepw(pDeviceS.getDevicePw());
+                    pDevice.setDname(pDeviceS.getDname());
+                    System.out.println("修改的信息:"+pDeviceS.getDevicePw()+pDeviceS.getDname());
+                    deviceService.updateDevice(pDevice);
+                }catch (MyException e){
+
+                    e.printStackTrace();
+                }
+            }
+
+        }
         return "system/device/update-device";
     }
 
-    @ResponseBody
-    @PostMapping(value = "/updateDevice")
-    public JsonUtil updateDevice(PDeviceS pDeviceS){
-        JsonUtil util = new JsonUtil();
-        util.setFlag(false);
-        if(pDeviceS==null){
 
-        }
-        return util;
-    }
+//    @ResponseBody
+//    @GetMapping(value = "/updateDevice")
+//    public JsonUtil updateDevice(String eid, PDeviceS pDeviceS){
+//        JsonUtil util = new JsonUtil();
+//        PDevice pDevice = deviceService.selectDevicebyeid(eid);
+//        util.setFlag(false);
+//        if(pDeviceS==null){
+//            try {
+//                pDevice.setDevicepw(pDeviceS.getDevicePw());
+//                pDevice.setDname(pDeviceS.getDname());
+//
+//                deviceService.updateDevice(pDevice);
+//                util.setMsg("保存成功");
+//            }catch (MyException e){
+//                util.setMsg("保存失败");
+//                util.setFlag(false);
+//                e.printStackTrace();
+//            }
+//        }
+//        return util;
+//    }
 
 
     @PostMapping(value = "/deldevice")

@@ -31,9 +31,9 @@
     <div class="layui-inline">
       <input class="layui-input" height="20px" id="remark" autocomplete="off">
     </div>
-    <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
+    <button class="select-on layui-btn layui-btn-sm" data-type="select" style="background-color: deepskyblue"><i class="layui-icon"></i>
     </button>
-    <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
+    <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right; background-color: deepskyblue"
             data-type="reload">
       <i class="layui-icon">ဂ</i>
     </button>
@@ -43,17 +43,17 @@
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
     <@shiro.hasPermission name="role:add">
-    <button class="layui-btn layui-btn-normal" data-type="add">
-      <i class="layui-icon">&#xe608;</i>新增
+    <button class="layui-btn layui-btn-normal" data-type="add" style="background-color: deepskyblue">
+      <i class="layui-icon" >&#xe608;</i>新增
     </button>
     </@shiro.hasPermission>
     <#--<@shiro.hasPermission name="role:update">-->
-    <button class="layui-btn layui-btn-normal" data-type="update">
-      <i class="layui-icon">&#xe642;</i>编辑
+    <button class="layui-btn layui-btn-normal" data-type="update" style="background-color: deepskyblue" >
+      <i class="layui-icon" >&#xe642;</i>编辑
     </button>
    <#-- </@shiro.hasPermission>-->
     <@shiro.hasPermission name="role:select">
-    <button class="layui-btn layui-btn-normal" data-type="detail">
+    <button class="layui-btn layui-btn-normal" data-type="detail" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
     </@shiro.hasPermission>
@@ -65,7 +65,7 @@
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   </@shiro.hasPermission>
 <@shiro.hasPermission name="role:update">
-  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit" style="background-color: deepskyblue">编辑</a>
 </@shiro.hasPermission>
 <@shiro.hasPermission name="role:del">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>

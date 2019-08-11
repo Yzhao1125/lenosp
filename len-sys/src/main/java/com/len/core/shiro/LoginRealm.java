@@ -94,7 +94,7 @@ public class LoginRealm extends AuthorizingRealm{
     if(s==null){
       throw new UnknownAccountException("账户密码不正确");
     }else{
-      CurrentUser currentUser=new CurrentUser(s.getId(),s.getUsername(),s.getAge(),s.getEmail(),s.getPhoto(),s.getRealName());
+      CurrentUser currentUser=new CurrentUser(s.getId(),s.getUsername(),s.getAge(),s.getEmail(),s.getDepart(),s.getRealName());
       Subject subject = ShiroUtil.getSubject();
       /**角色权限封装进去*/
       //根据用户获取菜单

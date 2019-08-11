@@ -11,54 +11,95 @@
     <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/layui/layui.all.js" charset="utf-8"></script>
     <script type="text/javascript" src="${re.contextPath}/plugin/tools/tool.js"></script>
+
+    <style>
+        .layui-form-label{
+            width: 200px;
+        }
+        .layui-input-block{
+            margin-left: 230px;
+            min-height: 36px
+        }
+    </style>
 </head>
 <body>
 <div class="x-body">
     <form class="layui-form layui-form-pane" style="margin-left: 20px;">
         <div style="width:100%;height:500px;overflow: auto;">
+
             <div class="layui-form-item">
-                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
-                    <legend style="font-size:16px;">修改设备信息</legend>
-                </fieldset>
-            </div>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                        <legend style="font-size:16px;">设备用户信息</legend>
+                    </fieldset>
+                </div>
             <div style="margin-left:25%">
                 <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label for="dname" class="layui-form-label">
-                            新名称
+                    <div class ="layui-inline">
+                        <label for="realName" class="layui-form-label" ">
+                            学校名称
                         </label>
                         <div class="layui-input-inline">
-                            <input  id="dname" name="dname"  lay-verify="dname"
+                            <input value ="${user.schoolname}" id="schoolname" name="schoolname"  lay-verify="schoolname"
                                    autocomplete="off" class="layui-input">
                         </div>
                     </div>
-                 </div>
-                <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label for="devicePw" class="layui-form-label">
-                                <span class="x-red">*</span>新密码
-                            </label>
-                            <div class="layui-input-inline">
-                            <input type="password" id="newpw" name="newpw" lay-verify="newpw"
-                                   autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                </div>
-                <div style="height: 60px"></div>
-            </div>
-        </div>
-            <div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;
-      position: fixed;bottom: 1px;margin-left:-20px;">
-                <div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">
-                    <button  class="layui-btn layui-btn-normal" lay-filter="add" lay-submit>
-                        确定
-                    </button>
-                    <button  class="layui-btn layui-btn-primary" id="close">
-                        取消
-                    </button>
 
+
+                    <div class ="layui-inline">
+                        <label for="realName" class="layui-form-label">
+                            <span class="x-red">*</span> 联系人
+                        </label>
+                        <div class="layui-input-inline">
+                            <input value ="${user.realName}" id="realName" name="realName"  lay-verify="realName"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class ="layui-inline">
+                        <label for="depart" class="layui-form-label">
+                            <span class="x-red">*</span> 学校职位
+                        </label>
+                        <div class="layui-input-inline">
+                            <input value ="${user.depart}" id="depart" name="depart"  lay-verify="depart"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class ="layui-inline">
+                        <label for="tel" class="layui-form-label">
+                            <span class="x-red">*</span> 联系电话
+                        </label>
+                        <div class="layui-input-inline">
+                            <input value ="${user.tel}" id="tel" name="tel"  lay-verify="tel"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class ="layui-inline">
+                        <label for="email" class="layui-form-label">
+                            <span class="x-red">*</span>邮箱
+                        </label>
+                        <div class="layui-input-inline">
+                            <input value ="${user.email}" id="emai" name="email"  lay-verify="email"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
                 </div>
-            </div>
+              </div>
+        </div>
+
+            <#--<div style="width: 100%;height: 55px;background-color: white;border-top:1px solid #e6e6e6;-->
+      <#--position: fixed;bottom: 1px;margin-left:-20px;">-->
+                <#--<div class="layui-form-item" style=" float: right;margin-right: 30px;margin-top: 8px">-->
+                    <#--<button  class="layui-btn layui-btn-normal" lay-filter="add" lay-submit>-->
+                        <#--确定-->
+                    <#--</button>-->
+                    <#--<button  class="layui-btn layui-btn-primary" id="close">-->
+                        <#--取消-->
+                    <#--</button>-->
+
+                <#--</div>-->
+            <#--</div>-->
     </form>
 </div>
 </body>
@@ -143,17 +184,15 @@
         });
         //监听提交
         form.on('submit(add)', function(data){
-            // var index2 = parent.layer.getFrameIndex(window.name);
-            // var r=document.getElementsByName("role");
-            // var role=[];
-            // for(var i=0;i<r.length;i++){
-            //     if(r[i].checked){
-            //         console.info(r[i].value);
-            //         role.push(r[i].value);
-            //     }
-            // }
-            // data.field.role=role;
-
+            var r=document.getElementsByName("role");
+            var role=[];
+            for(var i=0;i<r.length;i++){
+                if(r[i].checked){
+                    console.info(r[i].value);
+                    role.push(r[i].value);
+                }
+            }
+            data.field.role=role;
             layerAjax('updateDevice', data.field, 'deviceList');
             return false;
         });

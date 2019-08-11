@@ -35,5 +35,7 @@ public interface PDeviceMapper extends BaseMapper<PDevice,String> {
 
     List<PDevice> getConnects(List<String> deviceids);
 
+    void updateDevice(PDevice pDevice);
+
     //  List<PDevice> getdeviceConnect();
 }

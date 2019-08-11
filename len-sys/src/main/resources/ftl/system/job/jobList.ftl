@@ -42,17 +42,17 @@
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
     <@shiro.hasPermission name="job:add">
-    <button class="layui-btn layui-btn-normal" data-type="add">
+    <button class="layui-btn layui-btn-normal" data-type="add" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe608;</i>新增
     </button>
     </@shiro.hasPermission>
     <@shiro.hasPermission name="job:update">
-    <button class="layui-btn layui-btn-normal" data-type="update">
+    <button class="layui-btn layui-btn-normal" data-type="update" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
    </@shiro.hasPermission>
     <@shiro.hasPermission name="job:select">
-    <button class="layui-btn layui-btn-normal" data-type="detail">
+    <button class="layui-btn layui-btn-normal" data-type="detail" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
     </@shiro.hasPermission>
@@ -64,16 +64,16 @@
   <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   </@shiro.hasPermission>
 <@shiro.hasPermission name="job:update">
-  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit" style="background-color: deepskyblue">编辑</a>
 </@shiro.hasPermission>
   {{#  if(!d.status){ }}
   <@shiro.hasPermission name="job:start">
-  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="start">启动</a>
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="start" style="background-color: deepskyblue">启动</a>
 </@shiro.hasPermission>
   {{#  } }}
   {{# if(d.status){ }}
   <@shiro.hasPermission name="job:end">
-  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="end">停止</a>
+  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="end" style="background-color: red">停止</a>
 </@shiro.hasPermission>
   {{#  } }}
 <@shiro.hasPermission name="role:del">

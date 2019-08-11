@@ -17,10 +17,20 @@
 </head>
 
 <body class="kit-theme">
-<div class="layui-layout layui-layout-admin kit-layout-admin">
-  <div class="layui-header">
-    <div class="layui-logo">3D打印设备物联教育平台</div>
-    <div class="layui-logo kit-logo-mobile"></div>
+
+
+<div class="layui-layout layui-layout-admin kit-layout-admin" >
+  <div class="layui-header" style="height: 80px">
+      <ul>
+          <img src="/plugin//build/images/backgroundinside.jpg" alt="404" width="300" height="80" >
+      </ul>
+    <ul>
+        <div class="layui-logo" style="width: 80% ;position: absolute;left: 20%;"><font size="7" color="white"  face="KaiTi"   style="position:absolute;top: 20px;right: 48%">
+            物 联 教 育 平 台</font></div>
+    </ul>
+      <#--时间显示-->
+      <div id="time1" style="position: absolute;right:225px;top: 43%; color: white;font-size: 18px">Loading...</div><script>
+      setInterval("document.getElementById('time1').innerHTML = new Date().toLocaleString();", 1000);</script>
     <#--    <div class="layui-hide-xs">
         <ul class="layui-nav layui-layout-left kit-nav">
           <li class="layui-nav-item"><a href="javascript:s();">会员管理</a></li>
@@ -36,23 +46,22 @@
           </li>
         </ul>
         </div>-->
-    <ul class="layui-nav layui-layout-right kit-nav">
+    <ul class="layui-nav layui-layout-right kit-nav" style="height: 80px">
+
       <li class="layui-nav-item">
-        <a href="javascript:;">
-          <i class="layui-icon">&#xe63f;</i> 皮肤</a>
-        </a>
+
         <dl class="layui-nav-child skin">
-          <dd><a href="javascript:;" data-skin="default" style="color:#393D49;"><i class="layui-icon">&#xe658;</i> 默认</a></dd>
-          <dd><a href="javascript:;" data-skin="orange" style="color:#ff6700;"><i class="layui-icon">&#xe658;</i> 橘子橙</a></dd>
-          <dd><a href="javascript:;" data-skin="green" style="color:#00a65a;"><i class="layui-icon">&#xe658;</i> 春天绿</a></dd>
-          <dd><a href="javascript:;" data-skin="pink" style="color:#FA6086;"><i class="layui-icon">&#xe658;</i> 少女粉</a></dd>
-          <dd><a href="javascript:;" data-skin="blue.1" style="color:#00c0ef;"><i class="layui-icon">&#xe658;</i> 天空蓝</a></dd>
-          <dd><a href="javascript:;" data-skin="red" style="color:#dd4b39;"><i class="layui-icon">&#xe658;</i> 枫叶红</a></dd>
+            <!--< <dd><a href="javascript:;" data-skin="default" style="color:black;"><i class="layui-icon">&#xe658;</i> 默认</a></dd>
+               dd><a href="javascript:;" data-skin="orange" style="color:#ff6700;"><i class="layui-icon">&#xe658;</i> 橘子橙</a></dd>
+             <dd><a href="javascript:;" data-skin="green" style="color:#00a65a;"><i class="layui-icon">&#xe658;</i> 春天绿</a></dd>
+             <dd><a href="javascript:;" data-skin="pink" style="color:#FA6086;"><i class="layui-icon">&#xe658;</i> 少女粉</a></dd>
+             <dd><a href="javascript:;" data-skin="blue.1" style="color:#00c0ef;"><i class="layui-icon">&#xe658;</i> 天空蓝</a></dd>
+             <dd><a href="javascript:;" data-skin="red" style="color:#dd4b39;"><i class="layui-icon">&#xe658;</i> 枫叶红</a></dd>-->
         </dl>
       </li>
-      <li class="layui-nav-item">
-        <a href="javascript:;">
-          <#assign currentUser = Session["curentUser"]>
+      <li class="layui-nav-item"  style="position: absolute;top: 25%;right: 110px;">
+        <a href="javascript:;" style="font-size: 20px;color: white;">
+          <#assign currentUser =Session["curentUser"] >
           <#--<img src="/images/${currentUser.photo}" class="layui-nav-img">-->
           ${currentUser.username}
         </a>
@@ -61,14 +70,15 @@
            <#--<dd><a href="javascript:;">安全设置</a></dd>-->
          <#--</dl>-->
       </li>
-      <li class="layui-nav-item"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+      <li ><a href="/logout"  style="position: absolute;top: 46%;right: 30px;width: 60px">
+          <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 18px;color: grey;auto">注销</i ></a></li>
     </ul>
-  </div>
 
+  </div>
 
   <#macro tree data start end>
     <#if (start=="start")>
-      <div class="layui-side layui-nav-tree layui-bg-black kit-side">
+      <div class="layui-side layui-nav-tree layui-bg-black kit-side" style="position:absolute;top: 80px">
         <div class="layui-side-scroll">
           <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
           <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
@@ -135,16 +145,20 @@
       </ul>
   </div>-->
 
-
-  <div class="layui-body" <#--style="border:1px solid red;padding-bottom:0;"--> id="container">
+  <div class="layui-body" <#--style="border:1px solid red;padding-bottom:0;"--> id="container"
+       style="position:absolute;top: 80px">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
   </div>
 
-  <div class="layui-footer">
+  <div class="layui-footer"  style="height: 40px;">
     <!-- 底部固定区域 -->
     2019 &copy;
-    <a target="_blank" href="https://www.whut.edu.cn">武汉理工大学</a> <#--技术交流请联系本人-154040976@qq.com-->
+    <a target="_blank" href="http://www.joye3d.com/">湖北嘉一三维高科股份有限公司</a> <#--技术交流请联系本人-154040976@qq.com-->
+      &emsp;&emsp;&emsp;全国热线：400-027-1133
+      &emsp;&emsp;&emsp;E-mail：jygk@joye3d.com
+      &emsp;&emsp;&emsp;总部地址：湖北省武汉市武昌区徐东大街338号纺织大厦
+      &emsp;&emsp;&emsp;生产基地：湖北省赤壁市赤马港嘉一科技园
   </div>
 </div>
 <script>

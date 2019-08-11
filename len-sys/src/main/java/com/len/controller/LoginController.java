@@ -86,6 +86,31 @@ public class LoginController {
             return "/register";
         }
 
+        if(StringUtils.isBlank(user.getRealName())){
+            model.addAttribute("msg","请输入联系人姓名");
+            return "/register";
+        }
+
+        if(StringUtils.isBlank(user.getSchoolname())){
+            model.addAttribute("msg","请输入学校名称");
+            return "/register";
+        }
+
+        if(StringUtils.isBlank(user.getDepart())){
+            model.addAttribute("msg","请输入所在科目或学校职位");
+            return "/register";
+        }
+
+        if(StringUtils.isBlank(user.getTel())){
+            model.addAttribute("msg","请输入联系人电话");
+            return "/register";
+        }
+
+        if(StringUtils.isBlank(user.getEmail())){
+            model.addAttribute("msg","请输入邮箱");
+            return "/register";
+        }
+
         int result = userService.checkUser(user.getUsername());
 
         if(result >0){

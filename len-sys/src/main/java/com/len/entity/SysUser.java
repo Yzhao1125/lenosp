@@ -26,14 +26,18 @@ public class SysUser {
     @NotEmpty(message = "密码不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String password;
 
-    private Integer age;
+    private String schoolname;
+
+    private String depart;
+
+    private String tel;
 
     private String email;
 
-    private String photo;
+    private Integer age;
 
     @Column(name = "real_name")
-    private String realName;
+    private String realName; //联系人姓名
 
     @Column(name = "create_by")
     private String createBy;

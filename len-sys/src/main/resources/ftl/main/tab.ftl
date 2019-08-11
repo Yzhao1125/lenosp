@@ -14,16 +14,16 @@
 <#--动态tab演示  利用 freemarker 宏实现-->
 <#macro tree data start end>
   <#if (start=="start")>
-  <div class="layui-side layui-bg-black kit-side">
-  <div class="layui-side-scroll">
-    <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
-  <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+  <div class="layui-side   layui-bg-black kit-side"  >
+  <div class="layui-side-scroll"  >
+    <div class="kit-side-fold" style="><i class="fa fa-navicon" aria-hidden="true" ></i></div>
+  <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar >
   </#if>
   <#list data as child>
     <#if child.children?size gt 0>
-      <li class="layui-nav-item">
+      <li class="layui-nav-item" >
         <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> ${child.name}</span></a>
-        <dl class="layui-nav-child">
+        <dl class="layui-nav-child" >
         <@tree data=child.children start="" end=""/>
         </dl>
       </li>

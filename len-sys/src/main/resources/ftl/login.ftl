@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>后台登录</title>
@@ -17,10 +17,19 @@
     <script type="text/javascript" src="${re.contextPath}/plugin/jquery/jquery-3.2.1.min.js"></script>
 
 </head>
-<body class="login-bg">
 
-<div class="login">
-    <div class="message">3D打印物联平台</div>
+<body background="/plugin//build/images/beijin.png"
+      style=" background-repeat:no-repeat ;
+
+background-size:100% 100%;
+
+background-attachment: fixed;">
+
+<ul>
+    <img src="/plugin//build/images/logo.jpg" alt="404" width="500" height="100"  style="float: left;">
+</ul>
+<div class="login" style="position: absolute;right: 150px;">
+    <div class="message" style="background-color:pink; color:black">用户登录</div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" action="/login" class="layui-form" >
@@ -38,7 +47,7 @@
             </div>
         </div>
         <hr class="hr15">
-        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%; background-color:pink; color:black" type="submit"  >
         <hr class="hr20" >
     </form>
 
@@ -91,3 +100,13 @@
 <!-- 底部结束 -->
 </body>
 </html>
+ <div class="layui-footer"  style="height: 40px;width: 100%;position: absolute;top:95%;left: 3%;">
+     <!-- 底部固定区域 -->
+     2019 &copy;
+     <div style="color: white"><a target="_blank" href="http://www.joye3d.com/" style="color: white;">湖北嘉一三维高科股份有限公司</a> <#--技术交流请联系本人-154040976@qq.com-->
+     &emsp;&emsp;&emsp;全国热线：400-027-1133
+     &emsp;&emsp;&emsp;公司总机:027-88991133
+     &emsp;&emsp;&emsp;E-mail：jygk@joye3d.com
+     &emsp;&emsp;&emsp;总部地址：湖北省武汉市武昌区徐东大街338号纺织大厦
+     &emsp;&emsp;&emsp;生产基地：湖北省赤壁市赤马港嘉一科技园</div>
+ </div>

@@ -33,9 +33,9 @@
     <div class="layui-inline">
       <input class="layui-input" height="20px" id="email" autocomplete="off">
     </div>
-    <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
+    <button class="select-on layui-btn layui-btn-sm" data-type="select" style="background-color: deepskyblue"><i class="layui-icon"></i>
     </button>
-    <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
+    <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;background-color: deepskyblue"
             data-type="reload">
       <i class="layui-icon">ဂ</i>
     </button>
@@ -45,39 +45,39 @@
 <div class="layui-col-md12" style="height:40px;margin-top:3px;">
   <div class="layui-btn-group">
       <@shiro.hasPermission name="user:select">
-      <button class="layui-btn layui-btn-normal" data-type="add">
+      <button class="layui-btn layui-btn-normal" data-type="add" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe608;</i>新增
       </button>
       </@shiro.hasPermission>
     <@shiro.hasPermission name="user:select">
-    <button class="layui-btn layui-btn-normal" data-type="update">
+    <button class="layui-btn layui-btn-normal" data-type="update" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe642;</i>编辑
     </button>
     </@shiro.hasPermission>
 <@shiro.hasPermission name="user:del">
-    <button class="layui-btn layui-btn-normal" data-type="detail">
+    <button class="layui-btn layui-btn-normal" data-type="detail" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe605;</i>查看
     </button>
 </@shiro.hasPermission>
     <@shiro.hasPermission name="user:repass">
-    <button class="layui-btn layui-btn-normal" data-type="changePwd">
+    <button class="layui-btn layui-btn-normal" data-type="changePwd" style="background-color: deepskyblue">
       <i class="layui-icon">&#xe605;</i>修改密码
     </button>
     </@shiro.hasPermission>
   </div>
 </div>
 <table id="userList" class="layui-hide" lay-filter="user"></table>
-<script type="text/html" id="barDemo">
-<@shiro.hasPermission name="user:select">
-  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-</@shiro.hasPermission>
-<@shiro.hasPermission name="user:update">
-  <a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit">编辑</a>
-</@shiro.hasPermission>
-<@shiro.hasPermission name="user:del">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</@shiro.hasPermission>
-</script>
+<#--<script type="text/html" id="barDemo">-->
+<#--<@shiro.hasPermission name="user:select">-->
+  <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+<#--</@shiro.hasPermission>-->
+<#--<@shiro.hasPermission name="user:update">-->
+  <#--<a class="layui-btn layui-btn-xs  layui-btn-normal" lay-event="edit" style="background-color: deepskyblue">编辑</a>-->
+<#--</@shiro.hasPermission>-->
+<#--<@shiro.hasPermission name="user:del">-->
+  <#--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+<#--</@shiro.hasPermission>-->
+<#--</script>-->
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="sex" lay-skin="switch" lay-text="女|男" lay-filter="sexDemo">
 </script>
@@ -104,12 +104,13 @@
           title: '用户名',
           width: '10%',
           sort: true,
-          style: 'background-color: #009688; color: #fff;'
+          style: 'background-color: deepskyblue; color: #fff;'
         }
-        , {field: 'age', title: '年龄', width: '17%', sort: true}
-        , {field: 'realName', title: '真实姓名', width: '20%'}
+        , {field: 'schoolname', title: '学校名称', width: '16%', sort: true}
+        , {field: 'realName', title: '联系人姓名', width: '10%'}
+        , {field: 'depart', title: '学校职位/科目', width: '15%'}
+        , {field: 'tel', title: '联系电话', width: '10%'}
         , {field: 'email', title: '邮箱', width: '13%'}
-        , {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}
         , {field: 'right', title: '操作', width: '20%', toolbar: "#barDemo"}
       ]]
       , page: true,

@@ -3,6 +3,7 @@ package com.len.service;
 import com.alibaba.fastjson.JSONObject;
 import com.len.base.BaseService;
 import com.len.entity.PDevice;
+import com.len.entity.PDeviceS;
 import com.len.util.JsonUtil;
 import com.len.util.ReType;
 
@@ -33,6 +34,8 @@ public interface DeviceService extends BaseService<PDevice,String> {
     PDevice selectDevicebyeid(String eid);
 
     JsonUtil deletebydeviceId(String eid, boolean flag);
+
+    void updateDevice(PDevice pDevice);
 
 
     List<HashMap<String,String>> getDeviceConnect(List<String> deviceids);

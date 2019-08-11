@@ -70,9 +70,9 @@
             <input class="layui-input" height="20px" id="dname" autocomplete="off">
         </div>
 
-        <button class="select-on layui-btn layui-btn-sm" data-type="select"><i class="layui-icon"></i>
+        <button class="select-on layui-btn layui-btn-sm" data-type="select" style="background-color: deepskyblue"><i class="layui-icon"></i>
         </button>
-        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right;"
+        <button class="layui-btn layui-btn-sm icon-position-button" id="refresh" style="float: right; background-color: deepskyblue"
                 data-type="reload">
             <i class="layui-icon">ဂ</i>
         </button>
