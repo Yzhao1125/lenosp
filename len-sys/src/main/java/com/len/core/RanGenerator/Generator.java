@@ -6,7 +6,7 @@ import java.util.Random;
 public class Generator {
 	public int MinUpperCaseChars = 0;
 	public int MinLowerCaseChars = 0;
-	public int MinNumericChars = 16;
+	public int MinNumericChars = 8;
 	public int MinSpecialChars = 0;
 	public CharType FillRest = CharType.NUMERIC;
 
@@ -25,7 +25,7 @@ public class Generator {
 	public String generateString() {
 		int sum = this.MinUpperCaseChars + this.MinLowerCaseChars
 				+ this.MinNumericChars + this.MinSpecialChars;
-		int length = 16;
+		int length = 8;
 		if (length < sum)
 			throw new IllegalArgumentException(
 					"length parameter must be valid!");
