@@ -311,7 +311,7 @@
        //      var ul=$('.layui-timeline');
        //      ul.html(htm);
        //  }, 3000);
-        setInterval(func, 10000);
+       // setInterval(func, 10000);
     });
 
 
@@ -418,8 +418,6 @@
             content: url
         });
     }
-
-
 
     function toolDelByFlag2(eid,list, flag) {
         var data={deviceid:eid};

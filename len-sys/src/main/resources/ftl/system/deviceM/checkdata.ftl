@@ -190,7 +190,6 @@
         });*/
 
 
-
     option8 = {
         title : {
             text: '3D打印机打印进度',
@@ -264,7 +263,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return  params.value[1];
             },
             axisPointer: {
                 animation: false
@@ -302,7 +301,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return  params.value[1];
             },
             axisPointer: {
                 animation: false
@@ -340,7 +339,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return  params.value[1];
             },
             axisPointer: {
                 animation: false
@@ -378,7 +377,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return  params.value[1];
             },
             axisPointer: {
                 animation: false
@@ -416,7 +415,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return params.value[1];
             },
             axisPointer: {
                 animation: false
@@ -454,7 +453,7 @@
             formatter: function (params) {
                 params = params[0];
                 var date = new Date(params.name);
-                return date.getHours() + ':' + date.getMinutes() +":"+date.getSeconds()+ ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                return params.value[1];
             },
             axisPointer: {
                 animation: false

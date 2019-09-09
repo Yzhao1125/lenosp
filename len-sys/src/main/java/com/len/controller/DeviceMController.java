@@ -211,7 +211,7 @@ public class DeviceMController {
         Socket s2 = Handler.list_socket_device.get(eid);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("EID",eid);
-        jsonObject.put("I","M 29"); //M25暂停，M29停止，M24恢复打印
+        jsonObject.put("I","M 112"); //M25暂停，M112停止，M24恢复打印
         System.out.println("指令数据"+jsonObject);
         if(s2!=null&&s2.isConnected()){
             try{
