@@ -48,7 +48,7 @@ public class DeviceStateServiceImpl extends BaseServiceImpl<PDevice,String> impl
         deviceStateMapper.saveDeviceState(tablename,device_state);
 
 
-        System.out.println("servicImple层："+tablename);
+     //   System.out.println("servicImple层："+tablename);
         return 0;
     }
 

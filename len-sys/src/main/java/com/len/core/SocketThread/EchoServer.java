@@ -30,7 +30,7 @@ public class EchoServer {
         while (true) {
             Socket socket=null;
             try {
-                socket=serverSocket.accept();
+                socket = serverSocket.accept();
                 threadPool.execute(new Handler(socket));//把与客户通讯的任务交给线程
             } catch (Exception e) {
                 // TODO: handle exception

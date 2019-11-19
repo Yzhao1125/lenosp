@@ -68,10 +68,9 @@ public class Handler implements Runnable{
             BufferedReader br = getReader(socket);
             PrintWriter pw = getWriter(socket);
             socketList.add(socket);
-            socket.setSoTimeout(60*1000);
+            socket.setSoTimeout(20*1000);
             String msg = null;
             String authmsg = null;
-
 
             while(true){
                 msg = br.readLine();
@@ -79,13 +78,13 @@ public class Handler implements Runnable{
                     System.out.println(msg);
                     if(msg.startsWith("AUT")) {  //认证消息 AUT{"EID":"****","PW":"****"}END
                         msg = msg.substring(3, msg.length() - 3);
-                        System.out.println("44444" + msg);
                         authjsonObject= new JSONObject();
                         authjsonObject =JSON.parseObject(msg);
                         deviceService = SpringUtil.getBean("deviceServiceImpl");
                         authmsg = deviceService.authDevice(msg);
                         if ("true".equals(authmsg)) {
-                            pw.write("OK");
+                             pw.write("OK");
+                          //  pw.println("OK");
                             pw.flush();
                             add_socket_device(authjsonObject.getString("EID"),socket);  //设备编号与socket绑定
                             deviceService.updateDeviceIp(authjsonObject.getString("EID"), socket.getInetAddress().toString().substring(1)); //更新设备表的设备连接状态
@@ -100,11 +99,13 @@ public class Handler implements Runnable{
                         jsonObject = JSON.parseObject(msg);
                         deviceMService = SpringUtil.getBean("deviceStateServiceImpl");
                         int in = deviceMService.saveDeviceState(jsonObject);
-                        System.out.println("存入结果："+ in);
+                     //   System.out.println("存入结果："+ in);
                     }
 
                 }else{  //readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值
-                   socket.close();
+                    System.out.println("打印机网络断开");
+                    socket.close();
+                    break;
                 }
             }
 

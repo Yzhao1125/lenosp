@@ -51,12 +51,12 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
     }
     @Override
     public List<PDevice> selectListByPage(PDevice record) {
-        System.out.println("读数据库前pDevice"+ record.getDname());
+      //  System.out.println("读数据库前pDevice"+ record.getDname());
         List<PDevice> list1 = deviceMapper.selectListByPage(record);
-        for(PDevice p: list1){
-            String s= p.getDname();
-            System.out.println("读数据库后"+s);
-        }
+//        for(PDevice p: list1){
+//            String s= p.getDname();
+//            System.out.println("读数据库后"+s);
+//        }
         return list1;
 
     }
@@ -90,7 +90,7 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
 
     @Override
     public void updateDevice(PDevice pDevice) {
-        System.out.println("进入service层");
+      //  System.out.println("进入service层");
         deviceMapper.updateDevice(pDevice);
     }
 
@@ -155,9 +155,9 @@ public class DeviceServiceImpl extends BaseServiceImpl<PDevice,String> implement
             tList = deviceMapper.selectListByPage(pDevice);
             for(PDevice p:tList){
                 if(p.getConnect().equals("已连接")){
-                    System.out.println("&&&&&&&&&&&&&&"+p.getDname());
+               //     System.out.println("&&&&&&&&&&&&&&"+p.getDname());
                     fList.add(p);
-                    System.out.println("@@@@@@@@@@@@@@@@@@@@"+fList.get(0).getDname());
+                //    System.out.println("@@@@@@@@@@@@@@@@@@@@"+fList.get(0).getDname());
                 }
 
             }

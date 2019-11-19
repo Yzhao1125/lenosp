@@ -148,6 +148,8 @@
         }
     };
 
+    var socket=null;
+
     $(function(){
        if(typeof (WebSocket)== "undefined" ){
            console.log("您的浏览器不支持WebSocket");
@@ -155,9 +157,11 @@
            console.log("您的浏览器支持WebSocket");
            socket = new WebSocket("ws:localhost:8092/websocket");
            socket.onopen = function () {
-               console.log("websocket已打开");
+           //    console.log("websocket已打开");
            };
            socket.onmessage=function(res){
+               console.log(res.data);
+
 
            }
        }
@@ -189,7 +193,6 @@
                 , {field: 'dname', title: '设备名称', width: '20%', sort: true}
                 , {field: 'deviceid', title: '设备编号', width: '22%'}
                 , {field: 'connect', title: '状态', width: '20%'}
-                /*, {field: 'photo', title: '头像', width: '13%', template: '#switchTpl'}*/
                 , {field: 'right', title: '操作', width: '26%', toolbar: "#barDemo"}
             ]]
             , page: true,
@@ -202,12 +205,8 @@
                 }
                 for (i=0;i<curdata.length;i++){
                     var eid = curdata[i].deviceid;
-                 //   console.log(eid);
                     deviceids.push(eid);
                 }
-
-                //console.log ("sss"+ deviceids);
-                //console.log(curdata);
 
 
 
@@ -282,7 +281,6 @@
         });
 
 
-
        //  setInterval(function(){
        //      var data=[];
        //      for(var i=0;i<10;i++){
@@ -311,7 +309,7 @@
        //      var ul=$('.layui-timeline');
        //      ul.html(htm);
        //  }, 3000);
-       // setInterval(func, 10000);
+        setInterval(func, 10000);
     });
 
 
@@ -336,8 +334,8 @@
               for (var j = 0; j < data1.length; j++) {
                   var data2 = data1[j];
                   connect.push(data2.connect);
-                  console.log("后台数据：");
-                  console.log(data2);
+              //    console.log("后台数据：");
+              //    console.log(data2);
               }
 
               //console.log(tableId);
