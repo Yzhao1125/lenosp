@@ -111,13 +111,16 @@ public class Handler implements Runnable{
 
         }catch (SocketTimeoutException e){
             //TODO: handle exception
+            System.out.println("1111111111111111111111");
             e.printStackTrace();
             try {
                 socket.close();
             }catch (IOException e2){
+                System.out.println("222222222222222222222");
                 e2.printStackTrace();
             }
         }catch (IOException e1){
+            System.out.println("333333333333333333333");
             e1.printStackTrace();
         }
     }
