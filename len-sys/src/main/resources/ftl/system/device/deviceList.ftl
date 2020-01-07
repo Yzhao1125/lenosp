@@ -154,13 +154,13 @@
        if(typeof (WebSocket)== "undefined" ){
            console.log("您的浏览器不支持WebSocket");
        } else{
-           console.log("您的浏览器支持WebSocket");
+//           console.log("您的浏览器支持WebSocket");
            socket = new WebSocket("ws:localhost:8092/websocket");
            socket.onopen = function () {
            //    console.log("websocket已打开");
            };
            socket.onmessage=function(res){
-               console.log(res.data);
+  //             console.log(res.data);
 
 
            }
@@ -220,7 +220,7 @@
         var $ = layui.$, active = {  //根据检索条件，刷新设备表格
             select: function () {
                 var dname = $('#dname').val();
-                console.info(dname);
+ //               console.info(dname);
                 table.reload('deviceList', {
                     where: {
                         dname: dname,
@@ -247,7 +247,7 @@
 
         //监听表格复选框选择
         table.on('checkbox(device)', function (obj) {
-            console.log(obj)
+//            console.log(obj)
         });
         //监听工具条
         table.on('tool(device)', function (obj) {
@@ -262,7 +262,7 @@
                 }, function (index) {  //layer中的第一个按钮使用layer.close(),需要给index才能关闭layer
                     toolDelByFlag2(eid,'deviceList',true);
                     layer.close(index);
-                    console.log(eid);
+//                    console.log(eid);
                 }, function () {
                     layer.close();
                 });
@@ -309,7 +309,7 @@
        //      var ul=$('.layui-timeline');
        //      ul.html(htm);
        //  }, 3000);
-        setInterval(func, 10000);
+     //   setInterval(func, 10000);
     });
 
 

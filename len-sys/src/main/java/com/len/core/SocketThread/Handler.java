@@ -68,7 +68,7 @@ public class Handler implements Runnable{
             BufferedReader br = getReader(socket);
             PrintWriter pw = getWriter(socket);
             socketList.add(socket);
-            socket.setSoTimeout(20*1000);
+            socket.setSoTimeout(30*1000);
             String msg = null;
             String authmsg = null;
 
@@ -104,23 +104,39 @@ public class Handler implements Runnable{
 
                 }else{  //readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值
                     System.out.println("打印机网络断开");
-                    socket.close();
+                    try{
+                        socket.close();
+                    }catch (IOException e3){
+                        e3.printStackTrace();
+                    }
+
                     break;
                 }
             }
 
-        }catch (SocketTimeoutException e){
+        }
+        catch (SocketTimeoutException e)
+        {
             //TODO: handle exception
-            System.out.println("1111111111111111111111");
+            System.out.println("socket超时，抛出异常");
             e.printStackTrace();
             try {
                 socket.close();
-            }catch (IOException e2){
-                System.out.println("222222222222222222222");
+            }
+            catch (IOException e2)
+            {
+                System.out.println("关闭socket,抛出异常");
                 e2.printStackTrace();
             }
-        }catch (IOException e1){
-            System.out.println("333333333333333333333");
+        }
+        catch (IOException e1){
+            System.out.println("socket关闭33333333333");
+            try{
+                socket.close();
+            }catch (IOException e4){
+                e4.printStackTrace();
+            }
+
             e1.printStackTrace();
         }
     }

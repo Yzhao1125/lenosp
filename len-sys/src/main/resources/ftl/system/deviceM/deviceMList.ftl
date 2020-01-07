@@ -123,7 +123,7 @@
         var $ = layui.$, active={
             select:function () {
                 var dname = $('#dname').val();
-                console.info(dname);
+ //               console.info(dname);
                 table.reload('ConDeList', {
                     where: {
                         dname: dname,
@@ -147,8 +147,8 @@
             var data = obj.data;
             var eid = data.deviceid;
             var dname = data.dname;
-            console.info(data);
-            console.info(eid);
+//            console.info(data);
+//            console.info(eid);
             if(obj.event === 'checkstatus'){
                 start(eid); //请求发送状态数据
                 checkstatus( dname +'实时状态','/checkdevice?eid=' + eid, 700, 450 )
@@ -269,7 +269,7 @@
             datatype: "json",
             async: false,
             success: function (res) {
-                console.info(res.msg);
+//                console.info(res.msg);
             },
             error: function () {
                 console.info("提交失败");
@@ -285,7 +285,8 @@
             datatype: "json",
             async: false,
             success: function (res) {
-                console.info(res.msg);
+ //               console.info(res.msg);
+                layer.msg(res);
             },
             error: function () {
                 console.info("提交失败");
@@ -300,7 +301,8 @@
             datatype: "json",
             async: false,
             success: function (res) {
-                console.info(res.msg);
+  //              console.info(res.msg);
+                layer.msg(res);
             },
             error: function () {
                 console.info("提交失败");
@@ -316,7 +318,8 @@
             datatype: "json",
             async: false,
             success: function (res) {
-                console.info(res.msg);
+ //               console.info(res.msg);
+                layer.msg(res);
             },
             error: function () {
                 console.info("提交失败");
@@ -331,7 +334,8 @@
             datatype: "json",
             async:false,
             success:function(res){
-                console.info(res.msg);
+  //              console.info(res.msg);
+                layer.msg(res);
             },
             error:function(){
                 console.info("提交失败");

@@ -30,15 +30,15 @@
             </div>
         </div>
 
-        <div class="layui-col-sm12 layui-col-md6">
-            <div class="layui-card">
-                <div class="layui-card-header">喷头2温度数据（T2：℃）</div>
-                <div class="layui-card-body" style="min-height: 280px;">
-                    <div id="main2" class="layui-col-sm12" style="height: 300px;"></div>
+        <#--<div class="layui-col-sm12 layui-col-md6">-->
+            <#--<div class="layui-card">-->
+                <#--<div class="layui-card-header">喷头2温度数据（T2：℃）</div>-->
+                <#--<div class="layui-card-body" style="min-height: 280px;">-->
+                    <#--<div id="main2" class="layui-col-sm12" style="height: 300px;"></div>-->
 
-                </div>
-            </div>
-        </div>
+                <#--</div>-->
+            <#--</div>-->
+        <#--</div>-->
 
 
         <div class="layui-col-sm12 layui-col-md6">
@@ -99,15 +99,15 @@
 
 
 
-        <div class="layui-col-sm12 layui-col-md6">
-            <div class="layui-card">
-                <div class="layui-card-header">3D打印机进度</div>
-                <div class="layui-card-body" style="min-height: 280px;">
-                    <div id="main8" class="layui-col-sm12" style="height: 300px;"></div>
+        <#--<div class="layui-col-sm12 layui-col-md6">-->
+            <#--<div class="layui-card">-->
+                <#--<div class="layui-card-header">3D打印机进度</div>-->
+                <#--<div class="layui-card-body" style="min-height: 280px;">-->
+                    <#--<div id="main8" class="layui-col-sm12" style="height: 300px;"></div>-->
 
-                </div>
-            </div>
-        </div>
+                <#--</div>-->
+            <#--</div>-->
+        <#--</div>-->
 
 
 
@@ -127,12 +127,12 @@
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main7'));
     var myChart2 = echarts.init(document.getElementById('main1'));
-    var myChart3 = echarts.init(document.getElementById('main2'));
+//    var myChart3 = echarts.init(document.getElementById('main2'));
     var myChart4 = echarts.init(document.getElementById('main3'));
     var myChart5 = echarts.init(document.getElementById('main4'));
     var myChart6 = echarts.init(document.getElementById('main5'));
     var myChart7 = echarts.init(document.getElementById('main6'));
-    var myChart8 = echarts.init(document.getElementById('main8'));
+//    var myChart8 = echarts.init(document.getElementById('main8'));
 
     var T1data = [];
     var T2data = [];
@@ -190,7 +190,7 @@
         });*/
 
 
-    option8 = {
+/*    option8 = {
         title : {
             text: '3D打印机打印进度',
             x:'center'
@@ -213,7 +213,7 @@
                 data:now_arr
             }
         ]
-    };
+    };*/
 
     option = {
         title: {
@@ -292,7 +292,7 @@
             smooth: true
         }]
     };
-    option3 = {
+/*    option3 = {
         title: {
             // text: '挤料数据'
         },
@@ -329,7 +329,7 @@
             data: Edata,
             smooth: true
         }]
-    };
+    };*/
     option4 = {
         title: {
             // text: '挤料数据'
@@ -488,13 +488,13 @@
 
     myChart.setOption(option);
     myChart2.setOption(option2);
-    myChart3.setOption(option3);
+//    myChart3.setOption(option3);
     myChart4.setOption(option4);
     myChart5.setOption(option5);
     myChart6.setOption(option6);
     myChart7.setOption(option7);
 
-    myChart8.setOption(option8);
+//    myChart8.setOption(option8);
 
 
 
@@ -514,7 +514,7 @@
                 Z = jsobject.P.Z;
                 T = jsobject.T;
                 id = jsobject.Eid;
-                console.log("dddddddddd"+id);
+ //               console.log("dddddddddd"+id);
 
                 if(T==undefined){
                     index = 0.25
@@ -556,11 +556,11 @@
             }]
         });
 
-        myChart3.setOption({
+ /*       myChart3.setOption({
             series: [{
                 data: T2data
             }]
-        });
+        });*/
 
         myChart4.setOption({
             series: [{
@@ -586,11 +586,11 @@
             }]
         });
 
-        myChart8.setOption({
+/*        myChart8.setOption({
             series: [{
                 data: now_arr
             }]
-        });
+        });*/
 
     },1000);
     // 使用刚指定的配置项和数据显示图表。

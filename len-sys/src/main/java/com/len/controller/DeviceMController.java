@@ -39,6 +39,7 @@ public class DeviceMController {
 
     String deviceId = null;
 
+
     @RequestMapping(value="/monitorDevice")
     public String MonitorDevice(){
         return "/system/deviceM/deviceMList";
@@ -95,7 +96,7 @@ public class DeviceMController {
         }
         result.putAll(id);
         result.putAll(jsonstate);
-        System.out.println("controller****"+ result.toJSONString());
+//        System.out.println("controller****"+ result.toJSONString());
         return result.toJSONString();
     }
 
@@ -127,8 +128,6 @@ public class DeviceMController {
     @RequestMapping(value ="/stop")
     @ResponseBody
     public void stopSend (String id) {
-        System.out.println("data1111111:"+ id);
- //       String eid = re.getParameter("id");
         Socket s2 = Handler.list_socket_device.get(id);
         if(s2!=null&&s2.isConnected()){
             try{
@@ -136,10 +135,10 @@ public class DeviceMController {
                 PrintWriter printWriter = new PrintWriter(outputStream);
                 printWriter.print("STOP");
                 printWriter.flush();
-                System.out.println("发送成功");
+//                System.out.println("发送成功");
             } catch (IOException e) {
                 System.out.println("发送数据异常");
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
         else {
@@ -149,85 +148,98 @@ public class DeviceMController {
 
     @RequestMapping(value ="/recover")
     @ResponseBody
-    public void Drecover (HttpServletRequest re) {
-        System.out.println("data:"+ re.getParameter("ss"));
+    public String Drecover (HttpServletRequest re) {
+//        System.out.println("data:"+ re.getParameter("ss"));
         String eid=re.getParameter("ss");
         Socket s2 = Handler.list_socket_device.get(eid);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("EID",eid);
-        jsonObject.put("I","M 24"); //M25暂停，M29停止，M24恢复打印
-        System.out.println("指令数据"+jsonObject);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("EID",eid);
+//        jsonObject.put("I","M 24"); //M25暂停，M29停止，M24恢复打印
+//        System.out.println("指令数据"+jsonObject);
+        String inst = "M 24";
         if(s2!=null&&s2.isConnected()){
             try{
                 //发送控制指令
                 OutputStream outputStream = s2.getOutputStream();
                 PrintWriter printWriter = new PrintWriter(outputStream);
-                printWriter.println(jsonObject);
+                printWriter.println(inst);
                 printWriter.flush();
+                return "发送成功。";
 
             } catch (IOException e) {
                 System.out.println("发送数据异常");
-                e.printStackTrace();
+//                e.printStackTrace();
+                return "发送失败，请刷新页面重新操作。";
             }
         }
         else {
             System.out.println("该设备连接断开");
+            return "发送失败，请重新连接打印机。";
         }
     }
 
     @RequestMapping(value ="/pause")
     @ResponseBody
-    public void Dpause (HttpServletRequest re) {
-        System.out.println("data:"+ re.getParameter("ss"));
+    public String Dpause (HttpServletRequest re) {
+//        System.out.println("data:"+ re.getParameter("ss"));
         String eid=re.getParameter("ss");
         Socket s2 = Handler.list_socket_device.get(eid);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("EID",eid);
-        jsonObject.put("I","M 25"); //M25暂停，M29停止，M24恢复打印
-        System.out.println("指令数据"+jsonObject);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("EID",eid);
+//        jsonObject.put("I","M 25"); //M25暂停，M29停止，M24恢复打印
+//        System.out.println("指令数据"+jsonObject);
+        String inst = "M 25";
         if(s2!=null&&s2.isConnected()){
             try{
                 //发送控制指令
                 OutputStream outputStream = s2.getOutputStream();
                 PrintWriter printWriter = new PrintWriter(outputStream);
-                printWriter.println(jsonObject);
+                printWriter.println(inst);
                 printWriter.flush();
+                return "发送成功。";
 
             } catch (IOException e) {
                 System.out.println("发送数据异常");
-                e.printStackTrace();
+ //               e.printStackTrace();
+                return "发送失败，请刷新页面重新操作。";
             }
         }
         else {
             System.out.println("该设备连接断开");
+            return "发送失败，请重新连接打印机。";
         }
     }
 
     @RequestMapping(value ="/stopdevice")
     @ResponseBody
-    public void stopDevice (HttpServletRequest re) {
-        System.out.println("data:"+ re.getParameter("ss"));
+    public String stopDevice (HttpServletRequest re) {
+//        System.out.println("data:"+ re.getParameter("ss"));
         String eid=re.getParameter("ss");
         Socket s2 = Handler.list_socket_device.get(eid);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("EID",eid);
-        jsonObject.put("I","M 112"); //M25暂停，M112停止，M24恢复打印
-        System.out.println("指令数据"+jsonObject);
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("EID",eid);
+//        jsonObject.put("I","M 112"); //M25暂停，M112停止，M24恢复打印
+//        System.out.println("指令数据"+jsonObject);
+        String inst = "M 112";
         if(s2!=null&&s2.isConnected()){
             try{
                 //发送控制指令
                 OutputStream outputStream = s2.getOutputStream();
                 PrintWriter printWriter = new PrintWriter(outputStream);
-                printWriter.println(jsonObject);
+                printWriter.println(inst);
                 printWriter.flush();
+                return "发送成功。";
 
             } catch (IOException e) {
                 System.out.println("发送数据异常");
-                e.printStackTrace();
+//                e.printStackTrace();
+                return "发送失败，请刷新页面重新操作。";
             }
         }
         else {
             System.out.println("该设备连接断开");
+            return "发送失败，请重新连接打印机。";
+
         }
     }
 
@@ -237,7 +249,7 @@ public class DeviceMController {
         // List<Device_state> statelist = deviceMService.getDeviceStateList(eid);
         deviceId = param;
         String Eid = param;
-        System.out.println("start:" + Eid);
+//        System.out.println("start:" + Eid);
         Socket s2 = Handler.list_socket_device.get(Eid);
         if (s2 != null && s2.isConnected()) {
             try {
